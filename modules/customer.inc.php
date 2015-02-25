@@ -65,7 +65,14 @@ if(!empty($documents))
         $SMARTY->assign('docrights', $DB->GetAllByKey('SELECT doctype, rights
 	        FROM docrights WHERE userid = ? AND rights > 1', 'doctype', array($AUTH->id)));
 }
-
+if ($customernodes != 0){
+foreach ($customernodes as $key => $val)
+{
+    $sth= $DB->GetOne('SELECT ipaddr FROM nodes WHERE ownerid = 0 AND netdev=?', array($val['netdev']));
+    $customernodes[$key]['sw']=long2ip($sth);
+}
+}
+                
 $SMARTY->assign(array(
 	'expired' => $expired, 
 	'time' => $SESSION->get('addbt'),

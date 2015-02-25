@@ -49,7 +49,9 @@ function setgroup(act)
 			<TABLE class="lmsbox-inner">
 				<THEAD>
 					<TR>
-						<TD style="width: {math equation="x-y" x=95 y=$ewx}%;" class="bold">{trans("Name:")}</TD>
+						<TD style="width: {math equation="x-y" x=93 y=$ewx}%;" class="bold">{trans("Name:")}</TD>
+						<TD style="width: 1%;" class="text-right">{trans("Switch:")}</TD>
+						<TD style="width: 1%;" class="text-right">{trans("Port:")}</TD>
 						<TD style="width: 1%;" class="text-right">{trans("ID:")}</TD>
 						{if $ewx}
 						<TD style="width: 1%;" class="text-right">{trans("Channel:")}</TD>
@@ -82,6 +84,12 @@ function setgroup(act)
 							{if $customernodes[customernodes].info}<BR>
 							<span class="nobr">{$customernodes[customernodes].info|truncate:60:"...":true}</span>
 							{/if}
+						</TD>
+						<TD align="center">
+						    <B>{$customernodes[customernodes].sw}</B>
+						</TD>
+						<TD align="center">
+						    <B>{$customernodes[customernodes].port}</b>
 						</TD>
 						<TD onClick="return self.location.href='?m=nodeinfo&amp;id={$customernodes[customernodes].id}';" class="text-right">
 							({$customernodes[customernodes].id|string_format:"%04d"})
@@ -133,7 +141,7 @@ function setgroup(act)
 					</TR>
 					{/section}
 					<TR>
-						<TD colspan="{math equation="x+y" x=4 y=$ewx}" class="ftop">
+						<TD colspan="{math equation="x+y" x=6 y=$ewx}" class="ftop">
 							<IMG src="img/access.gif" alt="">
 							<A href="javascript: setstatus(1)"> {trans("Connect")}</A>/<A href="javascript: setstatus(0)">{trans("Disconnect")}</A>
 							<IMG src="img/warningon.gif" alt="">
