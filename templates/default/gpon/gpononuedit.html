@@ -1,0 +1,25 @@
+{include file="header.html"}
+{$xajax}
+<!--// $Id: gpononuedit.html,v 1.10 2012/04/18 19:56:45 DK Exp $ //-->
+<H1>{$layout.pagetitle}</H1>
+<TABLE WIDTH="100%" CELLPADDING="3">
+	<TR>
+		<TD WIDTH="100%">
+			{include file="gpon/gpononueditbox.html"}
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="100%">
+			{include file="gpon/gpononuconnbox.html"}
+		</TD>
+	<TR>
+	{if $netdevinfo.ownerid gt 0}
+	<TR>
+		<TD WIDTH="100%">
+			{include file="gpon/customerinfobox.html" customerpanel=1}
+		</TD>
+	</TR>
+	{/if}
+
+</TABLE>
+{include file="footer.html"}

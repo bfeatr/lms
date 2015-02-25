@@ -136,6 +136,16 @@ $access['table'][253]['deny_reg']	= '^(user(add|del|edit|passwd))$';
 $access['table'][255]['name']		= trans('no access');
 $access['table'][255]['deny_reg']	= '^.*$';
 
+$access['table'][34]['name']            = 'GPON - zarzadzanie modulem';
+$access['table'][34]['allow_reg']       = '^gpon.*$';
+
+$access['table'][32]['name']            = 'GPON - podglad infrormacji';
+$access['table'][32]['allow_reg']       = '^((gponolt|gpononu|gpononumodels)(info|list|search|tvinfo|tvlist)|gponoffline)$';
+
+$access['table'][33]['name']            = 'GPON - Autoprovisioning (nowy onu)';
+$access['table'][33]['allow_reg']       = '^(gpononu(add|script))$';
+
+
 // read user-defined access rights table
 $custom_access_table = ConfigHelper::getConfig('phpui.custom_accesstable');
 if (!is_null($custom_access_table))

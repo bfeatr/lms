@@ -279,6 +279,7 @@ $SESSION->save('backto', $_SERVER['QUERY_STRING']);
 
 $customerid = $customerinfo['id'];
 include(MODULES_DIR.'/customer.inc.php');
+include(MODULES_DIR.'/gpononu.inc.php');
 
 $hook_data = $LMS->executeHook(
     'customeredit_before_display', 

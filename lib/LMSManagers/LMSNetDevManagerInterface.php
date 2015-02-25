@@ -57,7 +57,7 @@ interface LMSNetDevManagerInterface
     
     public function GetNetDevNames();
     
-    public function GetNetDevList($order = 'name,asc');
+    public function GetNetDevList($order = 'name,asc', $gponolt=0);
     
     public function GetNetDevConnectedNames($id);
     

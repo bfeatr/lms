@@ -1,0 +1,28 @@
+{include file="header.html"}
+<!--// $Id: gponoltinfo.html,v 1.13 2012/04/18 19:56:45 DK Exp $ //-->
+<H1>{$layout.pagetitle}</H1>
+<TABLE WIDTH="100%" CELLPADDING="3">
+	<TR>
+		<TD WIDTH="100%">
+			{include file="gpon/gponoltinfobox.html"}
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="100%">
+			{include file="gpon/gponoltipbox.html"}
+		</TD>
+	</TR>
+  {if $dev2nagios.nagios=='1'}
+	<TR>
+		<TD WIDTH="100%">
+			{include file="gpon/netdevnagios.html"}
+		</TD>
+	</TR>
+  {/if}  
+	<TR>
+		<TD WIDTH="100%">
+			{include file="gpon/gponoltconnbox.html"}
+		</TD>
+	<TR>
+</TABLE>
+{include file="footer.html"}

@@ -16,6 +16,13 @@
 			{include file="customer/customernodesbox.html"}
 		</TD>
 	</TR>
+        {if ConfigHelper::checkConfig('phpui.gpon')}
+        <TR>
+                <TD style="width: 100%;">
+                        {include file="gpon/gpononu.inc.html"}
+                </TD>
+        </TR>
+        {/if}	
 	{if ConfigHelper::checkConfig('privileges.logging') && (ConfigHelper::checkConfig('privileges.superuser') || ConfigHelper::checkConfig('privileges.transaction_logs'))}
 	<TR>
 		<TD style="width: 100%;">

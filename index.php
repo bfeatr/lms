@@ -24,6 +24,9 @@
  *  $Id$
  */
 
+// wojtek
+date_default_timezone_set("Europe/Warsaw");
+
 // REPLACE THIS WITH PATH TO YOUR CONFIG FILE
 $CONFIG_FILE = '';
 
@@ -153,6 +156,24 @@ $LMS->lang = $_language;
 
 $plugin_manager = new LMSPluginManager();
 $LMS->setPluginManager($plugin_manager);
+
+// -- GPON DASAN --
+// Dodanie klasy GPON'a
+if (chkconfig(ConfigHelper::checkConfig('phpui.gpon')))
+{
+       if(!empty($CONFIG['directories']['lib_dir']))
+       {
+               if(file_exists($CONFIG['directories']['lib_dir'].'/gpon/GPON.menu.php') && file_exists($CONFIG['directories']['lib_dir'].'/gpon/GPON.class.php'))
+               {
+                       require_once(LIB_DIR.'/gpon/GPON.class.php');
+                       $GPON = new GPON($DB, $AUTH, $CONFIG);
+               }
+       }
+}
+$SMARTY->assignByRef('_phpui_gpon',$CONFIG['phpui']['gpon']);
+$CONFIG['directories']['rrd_dir'] = (!isset($CONFIG['directories']['rrd_dir']) ? $CONFIG['directories']['sys_dir'].'/rrd' : $CONFIG['directories']['rrd_dir']);
+define('RRD_DIR', $CONFIG['directories']['rrd_dir']);
+// -- GPON --
 
 // Initialize Swekey class
 
