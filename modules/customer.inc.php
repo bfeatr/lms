@@ -72,6 +72,7 @@ foreach ($customernodes as $key => $val)
     $customernodes[$key]['sw']=long2ip($sth);
 }
 }
+
                 
 $SMARTY->assign(array(
 	'expired' => $expired, 
