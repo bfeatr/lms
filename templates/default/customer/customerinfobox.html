@@ -356,6 +356,16 @@
 			{if $customerinfo.moddate}{$customerinfo.modifiedby}, {$customerinfo.moddateh}{else}-{/if}
 		</TD>
 	</TR>
+<TR>
+               <TD WIDTH="1%">
+                       <IMG SRC="img/recover.gif" ALT="">
+               </TD>
+               <TD WIDTH="1%" NOWRAP>
+                       <B>{trans("Tickets")}</B>
+               </TD>
+               <TD WIDTH="98%"><a href="?m=rtticketadd&customerid={$customerinfo.id}">{trans("New")}</a><b><font color="green"> {$new}</font></b> | <A HREF="?m=rtsearch&id={$customerinfo.id}"> {trans("Opened")}</A>
+<b><font color="blue">{$open}</font></b> | {trans("Resolved")} <b>{$resolved}</b> | {trans("All")} <b>{$all}</b> </TD>
+       </TR> 
                                         	</TABLE>
 					</TD>
 				</TR>
@@ -386,6 +396,7 @@
 		</TD>
 	</TR>
         </TBODY>
+
 </TABLE>
 {if $customerpanel}
 <SCRIPT type="text/javascript">

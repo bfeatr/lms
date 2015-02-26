@@ -2879,3 +2879,8 @@ $_LANG['Select producer'] = 'Wybierz producenta';
 $_LANG['Select model'] = 'Wybierz model';
 $_LANG['Enter producer name'] = 'Wpisz nazwę producenta';
 $_LANG['Click to select model'] = 'Kliknij w celu wybrania modelu';
+
+$_LANG['Resolved'] = 'Rozwiąne';
+$_LANG['Opened'] = 'Otwarte';
+$_LANG['All'] = 'Wszystkie';
+$_LANG['New'] = 'Nowe';

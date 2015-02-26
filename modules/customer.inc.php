@@ -72,7 +72,29 @@ foreach ($customernodes as $key => $val)
     $customernodes[$key]['sw']=long2ip($sth);
 }
 }
+$new = 0;
+$open = 0;
+$resolved = 0;
+$all = 0;
+$sth    = $DB->GetAll('SELECT * FROM rttickets WHERE customerid=?', array($customerid));
+if ($sth > 0){
+foreach ($sth as $idx => $row) {
 
+                   if ($row['state'] == 0)
+                        $new=$new + 1;
+                   elseif ($row['state'] == 1)
+                        $open = $open + 1;
+                   elseif ($row['state'] == 2)
+                        $resolved = $resolved + 1;
+
+            			}
+	     }	
+$all=count($sth);
+
+$SMARTY->assignByRef('new', $new);
+$SMARTY->assignByRef('open', $open);
+$SMARTY->assignByRef('resolved', $resolved);
+$SMARTY->assignByRef('all', $all); 
                 
 $SMARTY->assign(array(
 	'expired' => $expired, 
