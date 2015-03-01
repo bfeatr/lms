@@ -40,6 +40,13 @@
 			{include file="customer/customernodesbox.html"}
 		</TD>
 	</TR>
+        {if ConfigHelper::checkConfig('phpui.gpon')}
+		<TR>
+		    <TD style="width: 100%;">
+			{include file="gpon/gpononu.inc.html"}
+		    </TD>
+		</TR>
+        {/if}
 	<TR>
 		<TD WIDTH="100%">
 			{include file="customer/customervoipaccountsbox.html"}

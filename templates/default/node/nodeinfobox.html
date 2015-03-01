@@ -137,7 +137,13 @@
 				<span class="bold">
 				<A HREF="?m=netdevinfo&id={$netdevices.id}">{$netdevices.name} {$netdevices.producer}{if $netdevices.location} / {$netdevices.location}{/if}</A>
 				</span>
-				{if $nodeinfo.port}[{$nodeinfo.port}]{/if}
+    	                        {if $nodeinfo.port}
+                                        <a href="?m=europortstatusshort&ip={$netdevips[0].ip}&port={$nodeinfo.port}" {tip a=$netdevips[0].ip b=$nodeinfo.port dynpopup='?m=europortstatusshort&ip=$a&port=$b'}>[{$nodeinfo.port}]</a>
+                                  &nbsp;<a href="{if $_config.phpui.wykresy_url}{$_config.phpui.wykresy_url}/{else}https://78.31.127.254/wykresy/{/if}{$netdevips[0].ip|replace:".":"-"|replace:"10-100":"sw"|replace:"77-46":"sw"}/{$netdevips[0].ip}_{$nodeinfo.port}.html" TARGET="_blank" {tip a=$netdevips[0].ip b=$nodeinfo.port dynpopup='?m=europortgraphshort&ip=$a&port=$b'}><img src="img/traffic.gif" alt=""></a>
+                                  &nbsp;<a href="?m=europortmacs&ip={$netdevips[0].ip}&port={$nodeinfo.port}" {tip a=$netdevips[0].ip b=$nodeinfo.port dynpopup='?m=europortmacs&ip=$a&port=$b' sticky=1}><img src="img/mac.gif" alt=""></a>
+                                  &nbsp;<a href="?m=euromaclistinfo&ip={$netdevips[0].ip}&port={$nodeinfo.port}" {tip a=$netdevips[0].ip b=$nodeinfo.port dynpopup='?m=euromaclistinfoshort&ip=$a&port=$b' sticky=1}><img src="img/search.gif" alt=""></a>
+                                {/if}
+
 				<IMG src="img/{if $nodeinfo.linktype == 1}wireless.gif{elseif $nodeinfo.linktype == 2}netdev_takenports.gif{else}netdev_takenports.gif{/if}" alt="{$_LINKTYPES[$nodeinfo.linktype]}" {tip text="{if $nodeinfo.linktechnology}{$_LINKTECHNOLOGIES[$nodeinfo.linktype][$nodeinfo.linktechnology]} / {/if}{$_LINKSPEEDS[$nodeinfo.linkspeed]}"}>
 			{else}
 				{if $netdevices}

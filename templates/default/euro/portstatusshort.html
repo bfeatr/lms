@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--// $Id: portstatusshort.html,v 1.0 2010/02/12 00:00:00 emers Exp $ //-->
+<html><head>
+<meta name="GENERATOR" content="LMS {$layout.lmsv}">
+<meta http-equiv="Content-Language" content="{$LANGDEFS.$_language.html}">
+<meta http-equiv="Content-Type" content="text/html; charset={$LANGDEFS.$_language.charset}">
+<title>::: LMS :::</title>
+<link href="img/style.css" rel="stylesheet" type="text/css">
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="img/autoiframe.js"></SCRIPT>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript" SRC="img/common.js"></SCRIPT>
+</head>
+<body>
+<TABLE WIDTH="100%" CELLPADDING="3" id="table" BORDER=0>
+	<TR CLASS="blendbg">
+		<TD WIDTH="100%" COLSPAN="4" ALIGN="CENTER">
+			<b>{$portstatus.sysname} ({$portstatus.sysdesc})</b>
+		</TD>
+	</TR>
+	<TR CLASS="DARK">
+		<TD WIDTH="5%" ROWSPAN="3">
+			<IMG SRC="img/netdev.gif" alt="">
+		</TD>
+		<TD WIDTH="25%" ROWSPAN="3">
+			<B>IP:{$portstatus.ip}<br>Port: {$portstatus.port}{if $portstatus.alias} ({$portstatus.alias}){/if}</B>
+		</TD>
+	</TR>
+	<TR CLASS="DARK">
+		<TD WIDTH="5%">
+		    <B>Speed:</B>
+		</TD>
+		<TD WIDTH="30%" ALIGN="LEFT">
+			{if $portstatus.warning}<FONT COLOR="red"><b>{$portstatus.speed}</b></FONT>{else}{$portstatus.speed}{/if}
+		</TD>
+	</TR>
+	<TR CLASS="DARK">
+		<TD WIDTH="5%">
+		    <B>Status:</B>
+		</TD>
+		<TD WIDTH="30%" ALIGN="LEFT">
+			{$portstatus.status} ({if $portstatus.admindown}<FONT COLOR="red"><b>{$portstatus.adminstatus}</b></FONT>{else}{$portstatus.adminstatus}{/if})
+		</TD>
+</TABLE>
+<br>
+<TABLE WIDTH="100%" CELLPADDING="3" id="table" BORDER=1>
+	{cycle values="light,lucid" print=false}
+	<tr class="blendbg" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="50%" ALIGN="CENTER" COLSPAN="3">
+		    <B>Receive Statistics</B>
+		</TD>
+		<TD WIDTH="50%" ALIGN="CENTER" COLSPAN="3">
+		    <B>Transmit Statistics</B>
+		</TD>
+	</tr>
+	<tr class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="20%" ALIGN="CENTER">
+		    <B>UCast:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="CENTER">
+		    <B>MCast:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="CENTER">
+		    <B>BCast:</B>
+		</TD>
+		<TD WIDTH="20%" ALIGN="CENTER">
+		    <B>UCast:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="CENTER">
+		    <B>MCast:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="CENTER">
+		    <B>BCast:</B>
+		</TD>
+	</tr>
+	<tr class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="20%" ALIGN="RIGHT">
+			{$portstatus.iucast}
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.imcast}
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.ibcast}
+		</TD>
+		<TD WIDTH="20%" ALIGN="RIGHT">
+			{$portstatus.oucast}
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.omcast}
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.obcast}
+		</TD>
+	</TR>
+</TABLE>
+<br>
+<TABLE WIDTH="100%" CELLPADDING="3" id="table" BORDER=1>
+	{cycle values="light,lucid" print=false}
+	<tr class="blendbg" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="50%" ALIGN="CENTER" COLSPAN="2">
+		    <B>RMON Statistics</B>
+		</TD>
+		<TD WIDTH="50%" ALIGN="CENTER" COLSPAN="2">
+		    <B>Etherlike Statistics</B>
+		</TD>
+	</TR>
+	<tr class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="35%">
+		    <B>CRC:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.crc}
+		</TD>
+		<TD WIDTH="35%">
+		    <B>FCS:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.fcs}
+		</TD>
+	</TR>
+	<tr class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="35%">
+		    <B>Undersize Pks:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.undersize}
+		</TD>
+		<TD WIDTH="35%">
+		    <B>Single Col.:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.singlecolisions}
+		</TD>
+	</TR>
+	<tr class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="35%">
+		    <B>Oversize Pks:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.oversize}
+		</TD>
+		<TD WIDTH="35%">
+		    <B>Late Colisions:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.latecolisions}
+		</TD>
+	</TR>
+	<tr class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="35%">
+		    <B>Fragments:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.fragments}
+		</TD>
+		<TD WIDTH="35%">
+		    <B>Excessive Col.:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.excessivecolisions}
+		</TD>
+	</TR>
+	<tr class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="35%">
+		    <B>Colisions:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.colisions}
+		</TD>
+		<TD WIDTH="35%">
+		    <B>Oversize:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.oversize}
+		</TD>
+	</TR>
+	<tr class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="35%">
+		    <B>Jabbers:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.jabbers}
+		</TD>
+		<TD WIDTH="35%">
+		    <B>Recv Pause:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.inpauseframes}
+		</TD>
+	</TR>
+	<tr class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+		<TD WIDTH="35%">
+		    <B>MAC Recv Err.:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.macrcv}
+		</TD>
+		<TD WIDTH="35%">
+		    <B>Transm Pause:</B>
+		</TD>
+		<TD WIDTH="15%" ALIGN="RIGHT">
+			{$portstatus.outpauseframes}
+		</TD>
+	</TR>
+</table>
+</BODY>
+</HTML>
+

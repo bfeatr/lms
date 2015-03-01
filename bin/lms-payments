@@ -183,6 +183,14 @@ my $year = strftime("%Y",localtime2());
 my $weekday = strftime("%u",localtime2());
 my $yearday = strftime("%j",localtime2());
 
+#wojtek
+my $pmonth = strftime("%m", 59, 59, 23, 9, $month-2, $year);
+my $pyear = $year;
+if ($pmonth == "12") {
+    $pyear = $pyear-1;
+}
+    
+
 # leap year fix
 if(is_leap_year($year) && $yearday > 31+28) {
 	$yearday -= 1;
@@ -227,7 +235,9 @@ if ($y_month > 12) {
 my %txts;
 $txts{+DAY} = strftime("%Y/%m/%d", 0, 0, 12, $dom, $month - 1, $year - 1900);
 $txts{+WEEK} = strftime("%Y/%m/%d", 0, 0, 12, $dom, $month - 1, $year - 1900)." - ".strftime("%Y/%m/%d", 0, 0, 12, $dom + 6, $month - 1, $year - 1900);
-$txts{+MONTH} = strftime("%Y/%m/%d", 0, 0, 12, $dom, $month - 1, $year - 1900)." - ".strftime("%Y/%m/%d", 0, 0, 12, $dom - 1, $month, $year - 1900);
+# wojtek
+#$txts{+MONTH} = strftime("%Y/%m/%d", 0, 0, 12, $dom, $month - 1, $year - 1900)." - ".strftime("%Y/%m/%d", 0, 0, 12, $dom - 1, $month, $year - 1900);
+$txts{+MONTH} = "$month\/$year" ;
 $txts{+QUARTER} = strftime("%Y/%m/%d", 0, 0, 12, $dom, $month - 1, $year - 1900)." - ".strftime("%Y/%m/%d", 0, 0, 12, $dom - 1, $q_month, $q_year - 1900);
 $txts{+HALFYEAR} = strftime("%Y/%m/%d", 0, 0, 12, $dom, $month - 1, $year - 1900)." - ".strftime("%Y/%m/%d", 0, 0, 12, $dom - 1, $y_month, $y_year - 1900);
 $txts{+YEAR} = strftime("%Y/%m/%d", 0, 0, 12, $dom, $month - 1, $year - 1900)." - ".strftime("%Y/%m/%d", 0, 0, 12, $dom - 1, $month - 1, $year - 1900 + 1);
@@ -464,6 +474,14 @@ while(my $assign = $dbq->fetchrow_hashref())
 
 	if ($assign->{'value'} == 0) { next; };
 
+        # wojtek ID taryfy
+        if($assign->{'tariffid'} == 196) {
+    	    print STDERR "php /etc/lms/postpaid.php $uid $pmonth $pyear 2> /dev/null";
+            $assign->{'value'} = `php /etc/lms/postpaid.php $uid $pmonth $pyear`;
+            $assign->{'value'} = $assign->{'value'} * 1.23;
+            print STDERR $assign->{'value'};
+        }
+                                                            
 	# checking groups membership
 	if ($customergroups)
 	{
@@ -538,6 +556,13 @@ while(my $assign = $dbq->fetchrow_hashref())
 	$desc =~ s/\%next_period/$next_period/g;
 	$desc =~ s/\%prev_period/$prev_period/g;
 
+        # Wojtek
+        $desc =~ s/Abonament Wykonane/Wykonane/g;
+        $_ = $desc;
+        if (/Wykonane polaczenia za miesiac/) {
+    	    $desc=~ s/za miesiac \d{1,2}\/201\d\'{0,1}$/\'/;
+        }
+                                                    
 	if ($suspension_percentage && ($assign->{'suspended'} || $suspended == $uid))
 	{
 		$desc .= " ".$suspension_description;
@@ -835,11 +860,12 @@ while(my $assign = $dbq->fetchrow_hashref())
 $dbq->finish();
 
 # delete old assignments
+## wojtek - zmiana  lms-payments linia 660 i 669 z 30 dni na 3
 $dbase->do("DELETE FROM liabilities WHERE id IN (
 	SELECT liabilityid FROM assignments
-	WHERE dateto < $utsfmt - 86400 * 30 AND dateto != 0 AND at < $today - 86400 * 30
+	WHERE dateto < $utsfmt - 86400 * 3 AND dateto != 0 AND at < $today - 86400 * 3
 		AND liabilityid != 0)");
 $dbase->do("DELETE FROM assignments
-	WHERE dateto < $utsfmt - 86400 * 30 AND dateto != 0 AND at < $today - 86400 * 30");
+	WHERE dateto < $utsfmt - 86400 * 3 AND dateto != 0 AND at < $today - 86400 * 3");
 
 $dbase->disconnect();

@@ -1,4 +1,111 @@
 <!--// $Id$ //-->
+{literal}
+<SCRIPT type="text/javascript">
+<!--
+       function clearcounter()
+       {
+{/literal}
+               location.href = '?m=clearcounter&id={$customerinfo.id}';
+{literal}
+       }
+       function changetype()
+       {
+{/literal}
+               location.href =
+'?m=changetype&id={$customerinfo.id}&type='+checkradio();
+{literal}
+       }
+       function checkradio()
+       {
+               var tab = document['form1'].elements['msg[type]'];
+               for (var i = 0; i < tab.length; i++) {
+                       if (tab[i].checked) {
+                               return i;
+                       }
+               }
+       return -1;
+       }
+       function changevalue()
+       {
+{/literal}
+               location.href = '?m=changevalue&id={$customerinfo.id}';
+{literal}
+       }
+       function changestazowe()
+       {
+{/literal}
+               location.href = '?m=stazowechange&id={$customerinfo.id}';
+{literal}
+       }
+       function changedzienne()
+       {
+{/literal}
+               location.href = '?m=dziennechange&id={$customerinfo.id}';
+{literal}
+       }
+       function changenocne()
+       {
+{/literal}
+               location.href = '?m=nocnechange&id={$customerinfo.id}';
+{literal}
+       }
+       function changestazowe10p()
+       {
+{/literal}
+               location.href = '?m=stazowe_p10&id={$customerinfo.id}';
+{literal}
+       }
+       function zerujstazowe()
+       {
+{/literal}
+               location.href = '?m=stazowezeruj&id={$customerinfo.id}';
+{literal}
+    }
+       function zerujdzienne()
+       {
+{/literal}
+               location.href = '?m=dziennezeruj&id={$customerinfo.id}';
+{literal}
+    }
+       function zerujnocne()
+       {
+{/literal}
+               location.href = '?m=nocnezeruj&id={$customerinfo.id}';
+{literal}
+    }
+       function sendemail()
+       {
+{/literal}
+               location.href = '?m=sendemail&id={$customerinfo.id}';
+{literal}
+       }
+       function sendemail2013()
+       {
+{/literal}
+               location.href = '?m=sendemail2013&id={$customerinfo.id}';
+{literal}
+       }
+       function sendemail2014()
+       {
+{/literal}
+               location.href = '?m=sendemail2014&id={$customerinfo.id}';
+{literal}
+       }
+function sendemail2015()
+       {
+{/literal}
+               location.href = '?m=sendemail2015&id={$customerinfo.id}';
+{literal}
+       }
+
+       function clearlastclick()
+       {
+{/literal}
+               location.href = '?m=clearlastclick&id={$customerinfo.id}';
+{literal}
+       } 
+{/literal}
+</script>
 <TABLE class="lmsbox">
     <THEAD>
 	<TR{if $customerpanel} class="hand" onClick="showOrHide('customerpanel');"{/if}>
@@ -356,6 +463,104 @@
 			{if $customerinfo.moddate}{$customerinfo.modifiedby}, {$customerinfo.moddateh}{else}-{/if}
 		</TD>
 	</TR>
+
+
+
+<TR>
+              <TD WIDTH="1%">
+                      <IMG SRC="img/uprate.gif" ALT="">
+              </TD>
+              <TD WIDTH="1%">
+                      <B>{t}Przyspieszenie stazowe{/t}</b><br>
+              <A HREF="javascript:changestazowe()">Przelicz stazowe</a><br>
+              <!--<A HREF="javascript:changestazowe10p()">+10% do 25 dnia</a><br>-->
+              <A HREF="javascript:zerujstazowe()">Wyzeruj stazowe</a>
+              </TD>
+              <TD WIDTH="98%">
+                      {if $customerinfo.stazowe}<b>+
+{$customerinfo.stazowe}%</b>{else}nieaktywne{/if}
+         </TD>
+    </TR>
+      <TR>
+              <TD WIDTH="1%">
+                      <IMG SRC="img/uprate.gif" ALT="">
+              </TD>
+              <TD WIDTH="1%">
+                      <B>{t}Przyspieszenie nocne{/t}</b><br>
+              <A HREF="javascript:changenocne()">Przelicz nocne</a><br>
+              <A HREF="javascript:zerujnocne()">Wyzeruj nocne</a>
+              </TD>
+              <TD WIDTH="98%">
+                      {if
+$customerinfo.nocka}<b>aktywne</b>{else}<red>nieaktywne</red>{/if}
+         </TD>
+    </TR>
+      <TR>
+              <TD WIDTH="1%">
+                      <IMG SRC="img/uprate.gif" ALT="">
+              </TD>
+              <TD WIDTH="1%">
+                      <B>{t}Przyspieszenie dzienne{/t}</b><br>
+              <A HREF="javascript:changedzienne()">Przelicz dzienne</a><br>
+              <A HREF="javascript:zerujdzienne()">Wyzeruj dzienne</a>
+              </TD>
+              <TD WIDTH="98%">
+                      {if $customerinfo.bonus}<b>+
+20%</b>{else}<red>nieaktywne</red>{/if}
+         </TD>
+    </TR>
+      <TR>
+              <TD WIDTH="1%">
+                      <IMG SRC="img/downrate.gif" ALT="">
+              </TD>
+              <TD WIDTH="1%">
+                      <B>{t}Aktualne Downrate{/t}
+              </TD>
+              <TD WIDTH="98%">
+                      <B>{if
+$customerinfo.downrate}<red>{$customerinfo.downrate} kbit</red> {else}0
+kbit{/if}</b> (64 kbit min)
+         </TD>
+    </TR>
+      <TR>
+              <TD WIDTH="1%">
+                      <IMG SRC="img/uprate.gif" ALT="">
+              </TD>
+              <TD WIDTH="1%">
+                      <B>{t}Aktualne Uprate{/t}
+              </TD>
+              <TD WIDTH="98%">
+                      <B>{if
+$customerinfo.uprate}<blue>{$customerinfo.uprate} kbit</blue> {else}0
+kbit{/if}</b> (64 kbit min)
+         </TD>
+    </TR>
+<TR>
+              <TD WIDTH="1%">
+                      <IMG SRC="img/wait.gif" ALT="">
+              </TD>
+              <TD WIDTH="1%">
+                      <B>{t}<a
+href="?m=przelicz_pasmo&id={$customerinfo.id}">Przelicz pasmo</a>{/t}
+              </TD>
+              <TD WIDTH="98%">
+                </TD>
+    </TR> 
+      <TR>
+              <TD WIDTH="1%">
+                      <IMG SRC="img/downrate.gif" ALT="">
+              </TD>
+              <TD WIDTH="1%">
+                      <B>{t}Wyswietl plansze o zaleglosciach{/t}
+              </TD>
+              <TD WIDTH="98%">
+                      {if $customerinfo.quota}<FONT
+class="alert">{$customerinfo.quota}%</FONT> <IMG SRC="img/exclamation.gif"
+ALT="">{else}nieaktywne{/if}
+         </TD>
+    </TR> 
+
+
 <TR>
                <TD WIDTH="1%">
                        <IMG SRC="img/recover.gif" ALT="">

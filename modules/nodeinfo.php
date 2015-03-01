@@ -24,6 +24,7 @@
  *  $Id$
  */
 
+
 if (isset($_GET['nodegroups'])) {
 	$nodegroups = $LMS->GetNodeGroupNamesByNode(intval($_GET['id']));
 
@@ -108,11 +109,14 @@ if ($nodeinfo['invprojectid']) {
 	}
 }
 
+$netdevips = $LMS->GetNetDevIPs($nodeinfo['netdev']);
+
 $SMARTY->assign('nodesessions', $LMS->GetNodeSessions($nodeid));
 $SMARTY->assign('netdevices', $netdevices);
 $SMARTY->assign('nodegroups', $nodegroups);
 $SMARTY->assign('othernodegroups', $othernodegroups);
 $SMARTY->assign('nodeinfo', $nodeinfo);
+$SMARTY->assign('netdevips',$netdevips);
 $SMARTY->assign('objectid', $nodeinfo['id']);
 $SMARTY->display('node/nodeinfo.html');
 
