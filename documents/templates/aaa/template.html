@@ -1,0 +1,372 @@
+<html>
+<head>
+<title>{t}Contract{/t}</title>
+{literal}
+<STYLE type="text/css"><!--
+BODY		{ font-size: 12pt; font-family: Tahoma, Verdana, Arial, Helvetica; }
+H1		{ font-size: 14pt; text-align: left; }
+H2		{ font-size: 12pt; text-align: center; color: red;}
+H3		{ font-size: 12pt; text-align: left; }
+TD		{ font-size: 12pt; font-family: Tahoma, Verdana, Arial, Helvetica; }
+TABLE		{ border-collapse: collapse; }
+P		{ font-size: 12pt; font-family: Tahoma, Verdana, Arial, Helvetica; text-align: center; }
+//-->
+</STYLE>
+{/literal}
+<meta http-equiv="Content-Type" content="text/html; charset={$LANGDEFS.$_language.charset}">
+</head>
+<body>
+<h1>UMOWA O &#346;WIADCZENIE US&#321;UG TELEKOMUNIKACYJNYCH TVK/ID-{$customerinfo.id|string_format:"%04d"}/{$document.nr|string_format:"%04d"}</h1>
+Zawarta w dniu <b>{$smarty.now|date_format:"%Y-%m-%d"}</b><br> w Bia&#322;ymstoku pomi&#281;dzy:<br> 
+1. PPHU A&K Chameli&#324;scy s.j. z siedzib&#261; w Bia&#322;ymstoku, przy ul. Witosa 6 / 5, wpisana do rejestru przedsi&#281;biorc&#243;w prowadzony przez 
+S&#261;d Rejonowy w Bia&#322;mstoku wydzia&#322; XII Krajowego Rejestru S&#261;dowego pod numerem KRS 0000315962, posiadaj&#261;cym NIP 542-17-22-986 
+reprezetowanym przez: Andrzej Chamerli&#324;ski <br>zwanym dalej Operatorem</p>
+a<br>
+2. Pani&#261;/Panem <b>{$customerinfo.customername}</b><br>
+zamieszka&#322;ym(a)/z siedzib&#261; w <b>{$customerinfo.city}</b>, kod pocztowy <b>{$customerinfo.zip}</b> <br>
+przy <b>{$customerinfo.address}</b> <br>
+legitymuj&#261;cym(a) si&#281; dowodem osobistym seria/nr {if $customerinfo.icn}<b>{$customerinfo.icn}</b>{else} . . . . . . . . . . . {/if} <br>
+PESEL {if $customerinfo.ssn}<b>{$customerinfo.ssn}</b>{else} . . . . . . . . . . . .{/if}, <br>
+{if $customerinfo.ten}NIP <b>{$customerinfo.ten}</b>, <br>{/if}
+{if $customerinfo.regon}REGON <b>{$customerinfo.regon}</b>, <br>{/if} 
+tel. kontaktowy <b>{foreach from=$customerinfo.contacts item=item} {$item.phone} {/foreach}</b> <br>
+e-mail {if $customerinfo.email}<b>{$customerinfo.email}</b>{else} . . . . . . . . . . .{/if}, <br>
+adres korespondencyjny {if $customerinfo.serviceaddr}<b>{$customerinfo.serviceaddr}</b>{else}<b>{$customerinfo.address}, {$customerinfo.zip} {$customerinfo.city}</b>{/if}<br>
+adres zako&#324;czenia sieci: {if $customerinfo.rbe}<b>{$customerinfo.rbe}</b>{else}<b>{$customerinfo.address}, {$customerinfo.zip} {$customerinfo.city}</b>{/if}<br>
+zwanym(a) dalej <b>Abonentem</b>,<br>
+<br>
+<h3>&#167;1. O&#347;wiadczenia Stron</h3>
+1. Operator o&#347;wiadcza, &#380;e posiada zezwolenie Urz&#281;du Komunikacji Elektronicznej na &#347;wiadczenie us&#322;ug telekomunikacyjnych oraz na transmisj&#281; danych.<br>
+2. Abonent o&#347;wiadcza, &#380;e przys&#322;uguje mu Tytu&#322; prawny do Lokalu.<br>
+3. Strony zgodnie o&#347;wiadczaj&#261;, &#380;e integraln&#261; cz&#281;&#347;ci&#261; niniejszej Umowy jest Regulamin &#347;wiadczenia us&#322;ug telekomunikacyjnych, Cennik, 
+oraz inne za&#322;&#261;czniki wymienione w tre&#347;ci Umowy, kt&#243;re Abonent otrzyma&#322; przy zawieraniu Umowy. Abonent potwierdza, &#380;e zapozna&#322; si&#281; z tymi 
+dokumentami i akceptuje ich warunki.<br>
+4. Do niniejszej Umowy zastosowanie maj&#261; definicje zawarte w Regulaminie &#347;wiadczenia us&#322;ug telekomunikacyjnych, dalej zwanym Regulaminem.<br>
+<br>
+<h3>&#167;2. &#346;wiadczone Us&#322;ugi</h3>
+1. Abonent zamawia, a Operator zobowi&#261;zuje si&#281; &#347;wiadczy&#263; us&#322;ugi telekomunikacyjne polegaj&#261;ce na:<br>
+- dostarczaniu sygna&#322;u telewizyjnego i radiowego analogowego zgodnie z wybranym Pakietem programowym _________________________, w zamian za terminow&#261; zap&#322;at&#281; 
+Op&#322;aty abonamentowej w wysoko&#347;ci ______________________,<br>
+okres &#347;wiadczenia Us&#322;ugi:<br>
+- nieoznaczony<br
+- oznaczony _____________ miesi&#281;cy <br>
+Us&#322;uga &#347;wiadczona jest na warunkach promocyjnych, okre&#347;lonych w Regulaminie promocji stanowi&#261;cym Za&#322;&#261;cznik nr ___ do Umowy, zwi&#261;zanych z 
+przyznaniem ulgi w wysoko&#347;ci ______________ z&#322; ; minimalny okres wymagany do skorzystania z warunk&#243;w promocyjnych wynosi ____________ miesi&#281;cy<br>
+<br>
+dostarczaniu sygna&#322;u telewizyjnego cyfrowego w rozdzielczo&#347;ci SD, zgodnie z wybranym Pakietem programowym ______________________, w zamian za terminow&#261; 
+zap&#322;at&#281; Op&#322;aty abonamentowej w wysoko&#347;ci ______________________,<br>
+okres &#347;wiadczenia Us&#322;ugi:<br>
+nieoznaczony<br>
+oznaczony _____________ miesi&#281;cy <br>
+Us&#322;uga &#347;wiadczona jest na warunkach promocyjnych, okre&#347;lonych w Regulaminie promocji stanowi&#261;cym Za&#322;&#261;cznik nr ___ do Umowy, zwi&#261;zanych 
+z przyznaniem ulgi w wysoko&#347;ci ______________ z&#322; ; minimalny okres wymagany do skorzystania z warunk&#243;w promocyjnych wynosi ____________ miesi&#281;cy<br>
+<br>
+dostarczaniu sygna&#322;u telewizyjnego cyfrowego w rozdzielczo&#347;ci HD, zgodnie z wybranym Pakietem programowym ______________________, w zamian za terminow&#261; 
+zap&#322;at&#281; Op&#322;aty abonamentowej w wysoko&#347;ci ____________________, <br>
+okres &#347;wiadczenia Us&#322;ugi:<br>
+nieoznaczony<br>
+oznaczony _____________ miesi&#281;cy<br>
+Us&#322;uga &#347;wiadczona jest na warunkach promocyjnych, okre&#347;lonych w Regulaminie promocji stanowi&#261;cym Za&#322;&#261;cznik nr ___ do Umowy, zwi&#261;zanych 
+z przyznaniem ulgi w wysoko&#347;ci ______________ z&#322; ; minimalny okres wymagany do skorzystania z warunk&#243;w promocyjnych wynosi ____________ miesi&#281;cy<br>
+<br>
+dost&#281;pu do Internetu, zgodnie z wybranym Pakietem internetowym _______________________, w zamian za terminow&#261; zap&#322;at&#281; Op&#322;aty abonamentowej 
+w wysoko&#347;ci _______________________, okres &#347;wiadczenia Us&#322;ugi:<br>
+nieoznaczony<br>
+oznaczony _____________ miesi&#281;cy<br>
+Us&#322;uga &#347;wiadczona jest na warunkach promocyjnych, okre&#347;lonych w Regulaminie promocji stanowi&#261;cym Za&#322;&#261;cznik nr ___ do Umowy, zwi&#261;zanych 
+z przyznaniem ulgi w wysoko&#347;ci ______________ z&#322; ; minimalny okres wymagany do skorzystania z warunk&#243;w promocyjnych wynosi ____________ miesi&#281;cy<br>
+<br>							    
+&#347;wiadczeniu us&#322;ug telefonii stacjonarnej pozwalaj&#261;cej na realizowanie po&#322;&#261;cze&#324; g&#322;osowych, zgodnie z wybran&#261; taryf&#261; 
+______________________, w zamian za terminow&#261; zap&#322;at&#281; Op&#322;aty abonamentowej w wysoko&#347;ci _____________________. okres &#347;wiadczenia Us&#322;ugi: <br>
+nieoznaczony<br>
+oznaczony _____________ miesi&#281;cy<br>
+Us&#322;uga &#347;wiadczona jest na warunkach promocyjnych, okre&#347;lonych w Regulaminie promocji stanowi&#261;cym Za&#322;&#261;cznik nr ___ do Umowy, zwi&#261;zanych 
+z przyznaniem ulgi w wysoko&#347;ci ______________ z&#322; ; minimalny okres wymagany do skorzystania z warunk&#243;w promocyjnych wynosi ____________ miesi&#281;cy<br>
+<br>
+Abonentowi przydzielany jest numer: _______________________.<br>
+Adres zako&#324;czenia sieci: {if $customerinfo.rbe}<b>{$customerinfo.rbe}</b>{else}<b>{$customerinfo.address}, {$customerinfo.zip} {$customerinfo.city}</b>{/if}.<br> 
+Czas po&#322;&#261;cze&#324;, kt&#243;ry wliczony jest w Op&#322;at&#281; abonamentow&#261; __________________________.<br>
+Pr&#243;g kwotowy : ______________________________  po przekroczeniu kt&#243;rego Operator b&#281;dzie obowi&#261;zany do poinformowania o tym Abonenta oraz zablokowania na &#380;&#261;danie Abonenta mo&#380;liwo&#347;ci wykonywania po&#322;&#261;cze&#324; na numery us&#322;ug o podwy&#380;szonej op&#322;acie i odbierania po&#322;&#261;cze&#324; z takich numer&#243;w.<br>
+<br>
+Na Op&#322;at&#281; za korzystanie z Us&#322;ugi telefonii sk&#322;adaj&#261; si&#281; Op&#322;ata abonamentowa oraz op&#322;ata za czas po&#322;&#261;cze&#324; wykonanych z Numeru abonenckiego Abonenta (za wyj&#261;tkiem czasu po&#322;&#261;cze&#324;, kt&#243;ry wliczony jest w Op&#322;at&#281; abonamentow&#261;) <br>
+Czas po&#322;&#261;cze&#324; do wykorzystania w danym okresie rozliczeniowym, za kt&#243;re nale&#380;no&#347;&#263; wliczona jest w Op&#322;at&#281; abonamentow&#261; i kt&#243;rego Abonent nie wykorzysta w danym Okresie rozliczeniowym nie przechodzi na kolejny Okres rozliczeniowy; Abonent nie jest te&#380; uprawniony do ubiegania si&#281; o naliczenie Op&#322;aty abonamentowej w cz&#281;&#347;ci lub do jej zwrotu.<br>
+Wszystkie po&#322;&#261;czenia rozpocz&#281;te w danym Okresie rozliczeniowym rozliczane s&#261; w ca&#322;o&#347;ci w Okresie rozliczeniowym, w kt&#243;rym si&#281; rozpocz&#281;&#322;y.<br>
+<br>
+2. Operator nie wprowadzi&#322; &#380;adnych ogranicze&#324; w dost&#281;pie lub korzystaniu z Us&#322;ug. <br>
+3. W ramach Op&#322;aty abonamentowej Operator zobowi&#261;zany jest do:<br>
+a) umo&#380;liwienia Abonentowi korzystania za pomoc&#261; Sieci Operatora z wybranego Pakietu Us&#322;ug,<br>
+b) administrowania udost&#281;pnionym Pakietem Us&#322;ug,<br>
+c) usuwania Awarii i &#347;wiadczenia us&#322;ug serwisowych o ile nie s&#261; one dodatkowo p&#322;atne zgodnie z Cennikiem,<br>
+d) zapewnienia obs&#322;ugi Abonenta w Biurze Obs&#322;ugi oraz telefonicznie, w godzinach pracy Biura;<br>
+e) u&#380;yczenia Urz&#261;dzenia dost&#281;powego, je&#347;li jest ono niezb&#281;dne do &#347;wiadczenia Us&#322;ugi<br>
+<br>
+<h3>&#167;3. Uiszczanie op&#322;at</h3>
+4. Abonent zobowi&#261;zuje si&#281; do terminowego uiszczania nale&#380;nych Operatorowi Op&#322;at, a tak&#380;e wykonywania 
+innych obowi&#261;zk&#243;w wynikaj&#261;cych z Umowy i Regulaminu, za&#347; Operator zobowi&#261;zuje si&#281; do &#347;wiadczenia 
+Us&#322;ug zgodnie z wybranym przez Abonenta Pakietem w spos&#243;b zapewniaj&#261;cy ci&#261;g&#322;o&#347;&#263; dost&#281;pu do 
+Us&#322;ugi, a tak&#380;e do wykonywania innych obowi&#261;zk&#243;w wynikaj&#261;cych z Umowy i Regulaminu. <br>
+5. Abonent zobowi&#261;zany jest do uiszczania Op&#322;at abonamentowych i Op&#322;at jednorazowych got&#243;wk&#261; w Biurze 
+Obs&#322;ugi Abonenta lub na rachunek bankowy Operatora o nr ______________________. W przypadku p&#322;atno&#347;ci na rachunek 
+bankowy za dzie&#324; zap&#322;aty uwa&#380;a si&#281; dzie&#324; uznania rachunku bankowego Operatora.<br>
+6. Okresem rozliczeniowym jest miesi&#261;c kalendarzowy.<br>
+7. Op&#322;aty abonamentowe Abonent zobowi&#261;zany jest uiszcza&#263; w terminie do ____________ dnia ka&#380;dego miesi&#261;ca 
+z g&#243;ry. Op&#322;ata abonamentowa za pierwszy Okres rozliczeniowy korzystania z Us&#322;ugi rozliczana jest proporcjonalnie 
+do czasu jej &#347;wiadczenia.<br>
+8. Op&#322;aty za po&#322;&#261;czenia telefoniczne wykonane z Numeru Abonenta w danym Okresie rozliczeniowym, a tak&#380;e 
+Op&#322;aty jednorazowe za czynno&#347;ci wykonane przez Operatora w danym Okresie rozliczeniowym Abonent zobowi&#261;zany jest 
+uiszcza&#263; w kolejnym Okresie rozliczeniowym w wysoko&#347;ci i terminie wskazanym na rachunku. <br>
+9. Rachunek dor&#281;czany jest Abonentowi na adres wskazany w Umowie. Na wniosek Abonenta rachunek mo&#380;e byc dor&#281;czany 
+za po&#347;rednictwem poczty elektronicznej na adres wskazany przez Abonenta. <br>
+10. W przypadku op&#243;&#324;nienia z zap&#322;at&#261; nale&#380;no&#347;ci Operator uprawniony jest do naliczania odsetek ustawowych 
+od wymagalnych a nieuiszczonych nale&#380;no&#347;ci Abonenta.<br>
+<br>
+<h3>&#167; 4 Przy&#322;&#261;czenie do Sieci</h3>
+1. W ramach Umowy Operator zobowi&#261;zuje si&#281; do:<br>
+wykonania Instalacji w Lokalu Abonenta, <br>
+dostosowania Instalacji znajduj&#261;cej si&#281; w Lokalu Abonenta w spos&#243;b umo&#380;liwiaj&#261;cy &#347;wiadczenie wybranych 
+w ramach niniejszej Umowy us&#322;ug za zap&#322;at&#261; Op&#322;aty jednorazowej, zwanej dalej Op&#322;at&#261; instalacyjn&#261; 
+w wysoko&#347;ci __________________. <br>
+2. Operator przyst&#261;pi do wykonania Instalacji  w dniu _________________, o godzinie _____________. Abonent zobowi&#261;zuje si&#281; 
+by&#263; obecny w tej dacie w Lokalu, lub zapewni&#263; obecno&#347;&#263; osoby pe&#322;noletniej, <br>
+3. Dost&#281;p do Sieci b&#281;dzie umo&#380;liwiony przez Operatora nie p&#243;&#378;niej ni&#380; w terminie 24 godzin od wykonania Instalacji. <br>
+<br>
+<h3>&#167; 5 Zmiana Pakietu i zamawianie dodatkowych opcji Us&#322;ugi</h3>
+1. Abonent mo&#380;e sk&#322;ada&#263; zam&#243;wienia na Pakiety  oraz dodatkowe opcje Us&#322;ugi w Biurze Obs&#322;ugi Abonenta, a tak&#380;e 
+za po&#347;rednictwem poczty elektronicznej lub telefonicznie. <br>
+2. Operator utrwala o&#347;wiadczenie Abonenta z&#322;o&#380;one za pomoc&#261; &#347;rodk&#243;w porozumiewania si&#281; na odleg&#322;o&#347;&#263; 
+i przechowuje je do ko&#324;ca trwania Umowy na zmienionych warunkach. Operator utrwala ca&#322;&#261; rozmow&#281; telefoniczn&#261;. Operator 
+udost&#281;pnia tre&#347;&#263; o&#347;wiadczenia Abonentowi na ka&#380;de jego &#380;&#261;danie. <br>
+3. Operator potwierdza Abonentowi fakt z&#322;o&#380;enia o&#347;wiadczenia o zmianie w terminie ustalonym z Abonentem, ale nie p&#243;&#378;niej 
+ni&#380; w ci&#261;gu jednego miesi&#261;ca od dnia zlecenia zmiany. Potwierdzenie dostarczane jest drog&#261; elektroniczn&#261; na wskazany 
+przez Abonenta adres poczty elektronicznej. Je&#347;li dostarczenie drog&#261; elektroniczn&#261; nie jest mo&#380;liwe, lub Abonent tego 
+za&#380;&#261;da potwierdzenie dor&#281;czane jest w formie pisemnej. W potwierdzeniu podaje si&#281; zakres, termin i tre&#347;&#263; zmian do Umowy.<br>
+4. W przypadku zmiany Pakietu lub zam&#243;wienia dodatkowych opcji Us&#322;ugi za pomoc&#261; &#347;rodk&#243;w porozumiewania si&#281; na 
+odleg&#322;o&#347;&#263; Abonent uprawniony jest do odst&#261;pienia od dokonanej zmiany bez podawania przyczyny, w terminie 10 od daty dor&#281;czenia 
+potwierdzenia o kt&#243;rym mowa w ust. 3. Je&#347;li Operator nie dostarczy potwierdzenia w&#243;wczas termin na odst&#261;pienie od dokonanej 
+zmiany wynosi 3 miesi&#261;ce i liczy si&#281; go od dnia z&#322;o&#380;enia przez Abonenta o&#347;wiadczenia o zmianie warunk&#243;w Umowy. 
+Celem odst&#261;pienia nale&#380;y z&#322;o&#380;y&#263; pisemne o&#347;wiadczenie. Dla zachowania terminu wystarczaj&#261;ce jest wys&#322;anie 
+o&#347;wiadczenia na adres Operatora.<br>
+5. Prawo do odst&#261;pienia wskazane w ust. 4 nie przys&#322;uguje Abonentowi je&#347;li Operator za zgod&#261; Abonenta rozpocz&#261;&#322; 
+&#347;wiadczenie Us&#322;ug zgodnie ze zmienionymi warunkami Umowy.<br>
+<br>
+<h3>&#167; 6 Zmiany Umowy, Regulaminu i Cennika</h3>
+1. Operator  zobowi&#261;zany jest do powiadomienia Abonenta na pi&#347;mie, z zastrze&#380;eniem postanowie&#324; ust. 3 i 4 niniejszego paragrafu, 
+o ka&#380;dej proponowanej zmianie Umowy, Regulaminu b&#261;dz Cennika, z wyprzedzeniem co najmniej jednego miesi&#261;ca przed wprowadzeniem tych 
+zmian w &#380;ycie. Okres ten mo&#380;e by&#263; kr&#243;tszy je&#347;li konieczno&#347;&#263; zmian wynika ze zmiany przepis&#243;w prawa lub decyzji Prezesa 
+UKE, a okres od og&#322;oszenie aktu prawnego do jego wej&#347;cia w &#380;ycie lub okres wskazany w decyzji Prezesa UKE jest kr&#243;tszy ni&#380; 
+miesi&#261;c<br>
+2. Informacja o kt&#243;rej mowa w ust. 1 zawiera:<br>
+2.1) tre&#347;&#263; proponowanej zmiany,<br>
+2.2) pouczenie o prawie wypowiedzenia Umowy w przypadku braku akceptacji zmian w terminie do dnia wej&#347;cia zmian w &#380;ycie,<br>
+2.3) pouczenie, &#380;e w przypadku wypowiedzenia Umowy Operator nie jest uprawniony do &#380;&#261;dania zwrotu udzielonej Abonentowi ulgi;<br>
+Ust&#281;p 2.3) nie ma zastosowania je&#347;li zmiana Umowy, Regulaminu lub Cennika wynika bezpo&#347;rednio<br>
+(2.3.1) ze zmiany przepis&#243;w prawa, <br>
+(2.3.2) usuni&#281;cia niedozwolonych postanowie&#324; umownych, <br>
+(2.3.3) decyzji Prezesa UKE lub <br>
+(2.3.4) nie wi&#261;&#380;e si&#281; z podwy&#380;szeniem cen Us&#322;ugi; w tych wypadkach Operator mo&#380;e &#380;&#261;dac od Abonenta zwrotu udzielonej ulgi.<br>
+3. Na &#380;&#261;danie Abonenta Operator dostarcza tre&#347;&#263; ka&#380;dej proponowanej zmiany w Umowy, Regulaminu b&#261;d&#378; Cennika drog&#261; <br>
+elektroniczn&#261; na wskazany przez Abonenta adres poczty elektronicznej lub za pomoc&#261; podobnego &#347;rodka porozumiewania si&#281; na odleg&#322;o&#347;&#263;.<br>
+4. W przypadku gdy zmiana Umowy, Regulaminu lub Cennika wynika bezpo&#347;rednio ze zmiany przepis&#243;w prawa, powoduje obni&#380;enie cen Us&#322;ugi, 
+dodanie nowej us&#322;ugi lub wynika z decyzji Prezesa UKE Operator podaje do publicznej wiadomo&#347;ci poprzez zamieszczenie na stronie www.tvk-net.pl, a 
+tak&#380;e wywieszenie w Biurze Obs&#322;ugi tre&#347;&#263; proponowanych zmian, z wyprzedzeniem co najmniej jednego miesi&#261;ca przed wej&#347;ciem zmian w 
+&#380;ycie. Okres ten mo&#380;e by&#263; kr&#243;tszy je&#347;li konieczno&#347;&#263; zmian wynika ze zmiany przepis&#243;w prawa lub decyzji Prezesa UKE, a okres 
+od og&#322;oszenie aktu prawnego do jego wej&#347;cia w &#380;ycie lub okres wskazany w decyzji Prezesa UKE jest kr&#243;tszy ni&#380; miesi&#261;c. 
+Operator jednocze&#347;nie informuje Abonenta o prawie wypowiedzenia Umowy w razie braku akceptacji zmian w terminie do dnia wej&#347;cia zmian w &#380;ycie.<br>
+<br>
+<h3>&#167; 7 Warunki przed&#322;u&#380;enia Umowy</h3>
+Umowa na czas oznaczony wraz z up&#322;ywem okresu na jaki zosta&#322;a zawarta ulega automatycznemu 
+przed&#322;u&#380;eniu na czas nieoznaczony. Abonent mo&#380;e sprzeciwi&#263; si&#281; przed&#322;u&#380;eniu 
+Umowy sk&#322;adaj&#261;c o&#347;wiadczenie Operatorowi w najp&#243;zniej w terminie 7 dni przed ko&#324;cem 
+obowi&#261;zywania Umowy. W przypadku gdyby o&#347;wiadczenie takie nie zosta&#322;o z&#322;o&#380;one 
+Umowa wi&#261;za&#263; b&#281;dzie Strony na warunkach dotychczasowych.<br>
+<br>
+<h3>&#167; 8 Rozwi&#261;zanie Umowy</h3>
+1. W przypadku zawarcia Umowy poza Biurem Obs&#322;ugi Abonenta lub na odleg&#322;o&#347;&#263; Abonent uprawniony 
+jest do odst&#261;pienia od Umowy bez podawania przyczyny, w terminie 10 od daty zawarcia Umowy, sk&#322;adaj&#261;c 
+osobi&#347;cie lub listownie pisemne o&#347;wiadczenie. Dla zachowania terminu wskazanego w zdaniu poprzednim 
+wystarczaj&#261;ce jest wys&#322;anie o&#347;wiadczenia na adres Operatora. <br>
+2. Umowa na czas okre&#347;lony ulega rozwi&#261;zaniu z chwil&#261; up&#322;ywu okresu,  na jaki zosta&#322;a 
+zawarta, pod warunkiem z&#322;o&#380;enia przez Abonenta o&#347;wiadczenia o braku woli przed&#322;u&#380;enia 
+trwania umowy, o kt&#243;rym mowa w &#167; 7. <br>
+3. Umowa na czas nieokre&#347;lony mo&#380;e by&#263; wypowiedziana przez ka&#380;d&#261; ze Stron ka&#380;dym czasie, 
+z zachowaniem 30-dniowego okresu wypowiedzenia, ze skutkiem na koniec kolejnego Okresu rozliczeniowego. <br>
+4. Ka&#380;da ze Stron ma prawo rozwi&#261;zac Umow&#281; ze skutkiem natychmiastowym, bez zachowania okresu 
+wypowiedzenia, w nast&#281;puj&#261;cych przypadkach:<br>
+<b>a) Abonent:</b><br>
+<b>-</b> w przypadku gdy koszty wykonania Instalacji w zwi&#261;zku z konieczno&#347;ci&#261; zastosowania szczeg&#243;lnych 
+rozwi&#261;za&#324; technicznych s&#261; wy&#380;sze ni&#380; Op&#322;ata instalacyjna i Abonent ich nie akceptuje;<br>
+<b>-</b> nierozpocz&#281;cia &#347;wiadczenia przez Operatora Us&#322;ug w terminie 30 dni od dania wskazanego w Umowie jako 
+dzie&#324; rozpocz&#281;cia &#347;wiadczenia Us&#322;ug;<br>
+<b>-</b> w przypadku nie&#347;wiadczenia lub nienale&#380;ytego &#347;wiadczenia Us&#322;ug przez Operatora przez okres 
+kolejnych 30 dni;<br>
+<b>-</b> je&#347;li &#347;wiadczenie Us&#322;ug okre&#347;lonych w Umowie jest niemo&#380;liwe ze wzgl&#281;d&#243;w technicznych;<br>
+<b>-</b> w razie zmiany przez Operatora postanowie&#324; Umowy, Regulaminu lub zmiany Cennika; <br>
+<b>-</b> w razie utraty Tytu&#322;u prawnego do Lokalu lub cofni&#281;cia zgody udzielonej przez osob&#281;, kt&#243;rej 
+przys&#322;uguje Tytu&#322; prawny do Lokalu;<br>
+<b>-</b> w razie wszcz&#281;cia wobec Operatora lub Abonenta post&#281;powania likwidacyjnego lub upad&#322;o&#347;ciowego;<br>
+<b>-</b> w razie niewywi&#261;zywania si&#281; przez Operatora z istotnych postanowie&#324; Umowy oraz niniejszego 
+Regulaminu, mimo uprzedniego wezwania Operatora do nale&#380;ytego wykonania Umowy i wyznaczenia mu dodatkowego 
+14 dniowego terminu na usuni&#281;cie narusze&#324;;<br>
+<b>b) Operator:</b><br>
+<b>-</b> w przypadku gdy koszty wykonania Instalacji w zwi&#261;zku z konieczno&#347;ci&#261; zastosowania szczeg&#243;lnych
+rozwi&#261;za&#324; technicznych s&#261; wy&#380;sze ni&#380; Op&#322;ata instalacyjna i Abonent ich nie akceptuje; <br>
+<b>-</b> w razie op&#243;znienia Abonenta z zap&#322;at&#261; nale&#380;no&#347;ci za co najmniej 2 pe&#322;ne okresy 
+rozliczeniowe, po uprzednim wezwaniu Abonenta do zap&#322;aty i bezskutecznym up&#322;ywie udzielonego mu dodatkowego 
+14 dniowego terminu;<br>
+<b>-</b> w razie naruszenia przez Abonenta postanowie&#324; Umowy lub Regulaminu po uprzednim wezwaniu Abonenta do zaniechania 
+narusze&#324; i usuni&#281;cia ich skutk&#243;w i bezskutecznym up&#322;ywie udzielonego mu dodatkowego 14 dniowego terminu;<br>
+<b>-</b> w razie utraty Tytu&#322;u prawnego do Lokalu przez Abonenta lub cofni&#281;cia zgody udzielonej przez osob&#281;, 
+kt&#243;rej przys&#322;uguje Tytu&#322; prawny do Lokalu;<br>
+<b>-</b> je&#347;li &#347;wiadczenie Us&#322;ug okre&#347;lonych w Umowie jest niemo&#380;liwe ze wzgl&#281;d&#243;w technicznych;<br>
+<b>-</b> w razie wszcz&#281;cia wobec Abonenta lub Operatora post&#281;powania likwidacyjnego lub upad&#322;o&#347;ciowego;<br>
+5. Wypowiedzenie Umowy i jej rozwi&#261;zanie w trybie natychmiastowym winno nast&#261;pi&#263; na pi&#347;mie pod rygorem niewa&#380;no&#347;ci.<br>
+6. Z dniem rozwi&#261;zania Umowy Operator zaprzestaje &#347;wiadczenia Us&#322;ugi, z zastrze&#380;eniem powszechnie 
+obowi&#261;zuj&#261;cych przepis&#243;w prawa ma prawo do usuni&#281;cia wszelkich danych i informacji dotycz&#261;cyc 
+Abonenta uzyskanych w zwi&#261;zku ze &#347;wiadczeniem Us&#322;ugi oraz uprawniony jest do &#380;&#261;dania zwrotu Urz&#261;dzenia 
+dost&#281;powego, je&#347;li stanowi ono w&#322;asno&#347;&#263; Operatora.<br>
+7. W przypadku wypowiedzenia przez Abonenta, lub rozwi&#261;zania ze skutkiem natychmiastowym z przyczyn le&#380;&#261;cych po stronie 
+Abonenta Umowy, na podstawie kt&#243;rej Operator &#347;wiadczy&#322; Abonentowi us&#322;ugi po cenach promocyjnych, Operator ma prawo 
+dochodzi&#263; od Abonenta zwrotu udzielonej ulgi w wysoko&#347;ci __________________, pomniejszonej o proporcjonaln&#261; warto&#347;c 
+zni&#380;ek za okres od dnia zawarcia Umowy do dnia jej rozwi&#261;zania.<br>
+8. Abonent zobowi&#261;zany jest do zwrotu Urz&#261;dzenia dost&#281;powego udost&#281;pnionego przez Operatora w terminie 7 dni 
+od dnia wyga&#347;ni&#281;cia lub rozwi&#261;zania Umowy. Zwrot Urz&#261;dzenia dost&#281;powego nast&#281;puje w Biurze Obs&#322;ugi, 
+na koszt Abonenta. W przypadku braku zwrotu Urz&#261;dzenia dost&#281;powego we wskazanym terminie Operator, po uprzednim wezwaniu 
+Abonenta do zwrotu Urz&#261;dzenia dost&#281;powego i bezskutecznym up&#322;ywie dodatkowego 14 dniowego terminu, uprawniony jest do 
+&#380;&#261;dania od Abonenta zap&#322;aty kary umownej w wysoko&#347;ci __________________ z&#322;. Wysoko&#347;&#263; kary umownej 
+odpowiada rzeczywistej warto&#347;&#263; Urz&#261;dzenia dost&#281;powego. Kara umowna mo&#380;e zosta&#263; naliczona tak&#380;e w przypadku 
+zwr&#243;cenia Urz&#261;dzenia dost&#281;powego w stanie uszkodzonym, je&#347;li koszt naprawy przewy&#380;sza warto&#347;c 
+Urz&#261;dzenia.<br>
+9. Ewentualne op&#322;aty jakie Abonent mo&#380;e by&#263; zobowi&#261;zany ui&#347;ci&#263; na rzecz Operatora w momencie rozwi&#261;zania 
+Umowy to zaleg&#322;e Op&#322;aty miesi&#281;czne i jednorazowe, oraz op&#322;aty wynikaj&#261;ce z ust. 6 i 7 niniejszego paragrafu.<br>
+<br>
+<h3>&#167; 9 Urz&#261;dzenie dost&#281;powe</h3>
+Celem umo&#380;liwienia Abonentowi korzystania z Us&#322;ugi ___________________, Operator<br>
+udost&#281;pni  - op&#322;ata za udost&#281;pnienie wliczona jest w Op&#322;at&#281; abonamentow&#261;;<br>
+sprzeda  - za cen&#281; _______________ z&#322; urz&#261;dzenie dost&#281;powe:<br>
+Marka _____________________________<br>
+Typ / model _________________________<br>
+Numer  ____________________________<br>
+<br>
+Operator nie wprowadzi&#322; &#380;adnych ogranicze&#324; w zakresie korzystania z Urz&#261;dzenia dost&#281;powego. <br>
+Warunki udost&#281;pnienia / sprzeda&#380;y Urz&#261;dzenia dost&#281;powego uregulowane s&#261; w Regulaminie.<br>
+<br>
+<h3>&#167; 10 Jako&#347;c Us&#322;ug</h3>
+Operator &#347;wiadczy Us&#322;ugi z zachowaniem nast&#281;puj&#261;cych parametr&#243;w jako&#347;ci:<br>
+1. minimalny oferowany poziom jako&#347;ci us&#322;ug: _____________________________________________<br>
+2. czas oczekiwania na przy&#322;&#261;czenie do sieci telekomunikacyjnej (wyra&#380;any w dniach, w&#322;&#261;cznie z dniami 
+wolnymi od pracy) _________________________________________________________________<br>
+3. czas oczekiwania na po&#322;&#261;czenie z personelem (wyra&#380;any w sekundach, osobno dla dni roboczych i wolnych od pracy) 
+_____________________________________________________________________<br>
+4. czas usuni&#281;cia uszkodzenia (do zg&#322;oszenia przez abonenta braku mo&#380;liwo&#347;ci korzystania z us&#322;ug do 
+przywr&#243;cenia mo&#380;liwo&#347;ci korzystania z us&#322;ug wyra&#380;ony w godzinach) __________________________ <br>
+5. liczba uszkodze&#324; przypadaj&#261;cych na 100 &#322;&#261;czy w publicznej sieci telekomunikacyjnej o sta&#322;ej lokalizacji 
+zako&#324;czenia sieci __________________________________________________________________ <br>
+6. wskaznik reklamacji poprawno&#347;ci faktur oraz uzupe&#322;nie&#324; kwot uiszczonych w formie przedp&#322;aconej wyra&#380;ony
+procentach w stosunku do wszystkich wystawionych faktur lub dokonanych uzupe&#322;nie&#324; 
+________________________________________________________________________________ <br>
+7. stopa b&#322;&#281;d&#243;w transmisji danych _______________________________________________________ <br>
+8. osi&#261;gni&#281;ta pr&#281;dko&#347;&#263; transmisji danych w obu kierunkach (us&#322;uga Internetu; wyra&#380;ona w 
+kbit/s) _______________________________________________________________________________ <br>
+9. czas logowania (us&#322;uga Internetu; od momentu ustalenia po&#322;&#261;czenia pomi&#281;dzy terminalem u&#380;ytkownika 
+a serwerem do momentu pomy&#347;lnego zako&#324;czenia procesu logowania, wyra&#380;ony w sekundach) 
+_______________________________________________________________________________<br>
+10. wskaznik skutecznych logowa&#324; (us&#322;uga Internetu; procent skutecznych logowa&#324; w stosunku do ca&#322;kowitej 
+liczby wymaganych pr&#243;b) _______________________________________________________<br>
+11. op&#243;znienie  tj. czas transmisji w jedn&#261; stron&#281; (us&#322;uga Internetu; wyra&#380;ona w milisekundach)
+ _______________________________________________________________________________ <br>
+12. stopa nieskutecznych wywo&#322;a&#324; (us&#322;uga telefonii; wyra&#380;ony w procentach odsetek liczby wywo&#322;a&#324;, 
+kt&#243;re nie spowodowa&#322;y zestawienia &#380;&#261;danego po&#322;&#261;czenia, do liczby wszystkich wywo&#322;a&#324; w 
+danym okresie sprawozdawczym) _________________________________________________________________<br>
+13. czas zestawienia po&#322;&#261;cze&#324; (us&#322;uga telefonii; wyra&#380;ony w sekundach) ___________________________<br>
+<br>
+<h3>&#167; 11 Zasady przetwarzania danych osobowych i transmisyjnych</h3>
+1. Operator informuje Abonenta, &#380;e jest administratorem danych osobowych, dane przekazywane s&#261; przez Abonenta 
+dobrowolnie i Abonent ma prawo dost&#281;pu do danych i ich poprawiania w ka&#380;dym czasie. <br>
+2. Dane Abonenta przetwarzane s&#261; dla potrzeb wykonania umowy o &#347;wiadczenie us&#322;ug telekomunikacyjnych 
+(celem ukszta&#322;towania tre&#347;ci, zmian lub rozwi&#261;zania umowy, oraz jej realizacji), w tym wykonania obowi&#261;zku 
+transmisji danych oraz rozliczenia &#347;wiadczonych us&#322;ug. <br>
+3. Dla cel&#243;w przekazywania komunikat&#243;w w sieciach telekomunikacyjnych oraz naliczania op&#322;at za us&#322;ugi 
+telekomunikacyjne Operator przetwarza&#263; b&#281;dzie tak&#380;e dane transmisyjne, takie jak: dane routingowe, czas trwania 
+po&#322;&#261;cze&#324;, czas rozpocz&#281;cia i zako&#324;czenia po&#322;&#261;czenia, obj&#281;to&#347;&#263; komunikatu, 
+format (protok&#243;&#322; przekazu komunikatu), dane o po&#322;o&#380;eniu urz&#261;dze&#324; ko&#324;cowych wywo&#322;uj&#261;cego 
+i wywo&#322;ywanego, sie&#263;, w kt&#243;rej nast&#281;puje rozpocz&#281;cie i zako&#324;czenie po&#322;&#261;czenia. Dane te b&#281;d&#261; 
+przetwarzane w okresie obowi&#261;zywania umowy, a po jej zako&#324;czeniu w okresie dochodzenia roszcze&#324;. <br>
+4. Na podstawie art. 161 ust. 2 ustawy Prawo telekomunikacyjne Operator uprawniony jest do zbierania, utrwalania, przechowywania, 
+opracowywania, zmieniania i udost&#281;pniania: imienia, nazwiska, imion rodzic&#243;w, miejsca i daty urodzenia, adresu miejsca 
+zameldowania na pobyt sta&#322;y, adresu korespondencyjnego je&#347;li jest inny ni&#380; adres zameldowania na pobyt sta&#322;y, 
+numeru ewidencyjnego PESEL, nazwy, serii i numeru dowodu to&#380;samo&#347;ci oraz danych zawartych w dokumentach potwierdzaj&#261;cych 
+mo&#380;liwo&#347;&#263; wykonania zobowi&#261;zania wobec Operatora wynikaj&#261;cego z umowy o &#347;wiadczenie us&#322;ug telekomunikacyjnych 
+w zakresie w jakim dotyczy to &#347;wiadczonej na rzecz Abonenta lub jest niezb&#281;dne dla jej wykonania.<br>
+5. Abonent wyra&#380;a zgod&#281; na przetwarzanie danych: numeru NIP, numeru konta bankowego, adresu e-mail, numeru telefonu na 
+potrzeby wykonania umowy. <br>
+[ T A K ]	[ N I E ] <br>
+6. Abonent wyra&#380;a zgod&#281; na przetwarzanie danych wskazanych w ust. 3, 4 i 5 dla cel&#243;w marketingowych, w tym przekazywania 
+informacji o nowych ofertach promocyjnych, us&#322;ugach, konkursach i produktach oraz innych informacji handlowych. Dane te b&#281;d&#261; 
+przetwarzane do czasu zako&#324;czenia obowi&#261;zywania umowy.<br>
+[ T A K ]	[ N I E ] <br>
+7. Abonent sk&#322;ada &#380;&#261;danie dor&#281;czania proponowanych zmian Umowy, Regulaminu i Cennika, a tak&#380;e potwierdzenia 
+dokonanej przeze mnie zmiany Pakietu &#347;wiadczonych Us&#322;ug w drodze porozumiewania si&#281; na odleg&#322;o&#347;&#263; na wy&#380;ej 
+wskazany przeze mnie adres poczty elektronicznej.<br>
+[ T A K ]	[ N I E ] <br>
+8. Abonent wyra&#380;a zgod&#281; na dor&#281;czanie kierowanej do niego korespondencji, w szczeg&#243;lno&#347;ci komunikat&#243;w, 
+zawiadomie&#324;, rachunk&#243;w, faktur, wezwa&#324; do zap&#322;aty na wy&#380;ej wskazany wy&#380;ej adres poczty elektronicznej.<br>
+[ T A K ]	[ N I E ] <br>
+9. Operator zobowi&#261;zany jest do sporz&#261;dzania i uaktualniania spis&#243;w swoich abonent&#243;w. Spis abonent&#243;w 
+udost&#281;pniany jest w wersji ksi&#261;&#380;kowej po cenie uwzgl&#281;dniaj&#261;cej koszty, a tak&#380;e istnieje mo&#380;liwo&#347;c 
+wykorzystywania spisu, za pomoc&#261; funkcji wyszukiwania dost&#281;pnych w jego elektronicznej formie. Operator jest obowi&#261;zany 
+zabezpieczy&#263; spisy wydawane w formie elektronicznej w spos&#243;b uniemo&#380;liwiaj&#261;cy wykorzystanie zawartych w nich danych 
+niezgodnie z przeznaczeniem. Operator jest obowi&#261;zany informowa&#263; Abonenta o przekazaniu jego danych innym przedsi&#281;biorcom, 
+w celu publikacji spisu lub &#347;wiadczenia us&#322;ugi informacji o numerach telefonicznych<br>
+W spisie abonent&#243;w umieszczane s&#261; nast&#281;puj&#261;ce dane:<br>
+a) imiona i nazwisko<br>
+b) numer telefonu<br>
+c) nazwa miejscowo&#347;ci i ulicy, przy kt&#243;rej znajduje si&#281; zako&#324;czenie sieci udost&#281;pnione Abonentowi<br>
+<br>
+Abonent wyra&#380;a zgod&#281; na zamieszczenie jego danych w spisie abonent&#243;w
+[ T A K ]	[ N I E ] <br>
+<br>
+<h3>&#167; 12 Postanowienia ko&#324;cowe</h3>
+1. W Regulaminie uregulowano:<br>
+a) szczeg&#243;&#322;owe warunki wykonania instalacji, <br>
+b) warunki udost&#281;pnienia i sprzeda&#380;y urz&#261;dzenia dost&#281;powego,<br>
+c) informacje o procedurach wprowadzonych w celu pomiaru i organizacji ruchu w sieci wraz z informacj&#261; o ich wp&#322;ywie na jako&#347;c 
+&#347;wiadczonych Us&#322;ug,<br>
+d) informacje o funkcjonalno&#347;ciach Us&#322;ugi,<br>
+e) sposoby informowania Abonenta o wyczerpaniu pakietu transmisji danych w przypadku us&#322;ugi Internetu mobilnego oraz o mo&#380;liwo&#347;ci 
+bie&#380;&#261;cej kontroli stanu takiego pakietu,<br>
+f) zakres us&#322;ug serwisowych i sposoby kontaktowania si&#281; z podmiotami &#347;wiadcz&#261;cymi te us&#322;ugi,<br>
+g) zakres odpowiedzialno&#347;ci Operatora z tytu&#322;u niewykonania lub nienale&#380;ytego wykonania umowy, wysoko&#347;c 
+odszkodowania oraz zasady i terminy jego wyp&#322;aty,<br>
+h) zasady, tryb i terminy sk&#322;adania oraz rozpatrywania reklamacji,<br>
+i) informacj&#281; o polubownych sposobach rozwi&#261;zywania spor&#243;w,<br>
+j) spos&#243;b uzyskania informacji o aktualnym cenniku us&#322;ug i kosztach us&#322;ug serwisowych,<br>
+k) spos&#243;b przekazywania abonentowi informacji o zagro&#380;eniach zwi&#261;zanych ze &#347;wiadczon&#261; us&#322;ug&#261;, w tym o 
+sposobach ochrony bezpiecze&#324;stwa, prywatno&#347;ci i danych osobowych.<br>
+2. Kwestie nie uregulowane w niniejszej Umowie i Regulaminie reguluje ustawa Prawo Telekomunikacyjne z dnia 16 lipca 2004 r. (Dz. U. nr 171, poz. 1800). <br>
+3. Za&#322;&#261;czniki stanowi&#261; integraln&#261; cz&#281;&#347;&#263; Umowy. <br>
+4. Umow&#281; sporz&#261;dzono w dw&#243;ch egzemplarzach, po jednym dla ka&#380;dej ze stron.<br>
+<br>
+<table>
+ <tr>
+  <td width="33%">
+________________________<br>
+OPERATOR
+  </td>
+  <td width="33%">
+             
+  </td>
+  <td width="33%">
+________________________<br>
+ABONENT
+  </td>
+ </tr>
+</table>
+<br>
+Za&#322;&#261;czniki:
+Nr 1 - Regulamin
+Nr 2 - Cennik
+Nr 3 - Regulamin Promocji
+<br>
+podzial strony <br>
+</body>
+</html>
