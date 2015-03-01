@@ -24,6 +24,9 @@
  *  $Id$
  */
 
+// wojtek
+date_default_timezone_set("Europe/Warsaw");
+
 // REPLACE THIS WITH PATH TO YOUR CONFIG FILE
 
 $CONFIG_FILE = (is_readable('lms.ini')) ? 'lms.ini' : '/etc/lms/lms.ini';
