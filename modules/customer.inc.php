@@ -107,8 +107,8 @@ $SMARTY->assign(array(
 $othercustomersprzet = $LMS->GetDeviceListU();
 $customersprzet = $LMS->GetDeviceListC($customerid);
 
-$SMARTY->assignByRef('customersprzeta', $customersprzet);
-$SMARTY->assignByRef('othercustomersprzet', $othercustomersprzet);
+$SMARTY->assignByRef('customerdevice', $customersprzet);
+$SMARTY->assignByRef('othercustomerdevice', $othercustomersprzet);
 $SMARTY->assign('sourcelist', $DB->GetAll('SELECT id, name FROM cashsources ORDER BY name'));
 $SMARTY->assignByRef('customernodes', $customernodes);
 $SMARTY->assignByRef('assignments', $assignments);

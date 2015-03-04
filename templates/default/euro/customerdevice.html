@@ -1,0 +1,68 @@
+<!--// $Id: customersprzet.html,v 1.0 2010/12/02 00:00:00 emers Exp $ //-->
+<TABLE WIDTH="100%" CELLPADDING="3" class="lmsbox">
+<THEAD>
+	<TR CLASS="DARK" onclick="showOrHide('devicepanel');">
+		<TD class="fall">
+			<IMG src="img/mac.gif" alt="">
+			<B><A name="groups">{t}Customer devices{/t}:</A></B> 
+		</TD>
+	</TR>
+</THEAD>
+	<TR id="devicepanel" style="display:none;">
+		<TD WIDTH="100%" class="fall">
+			<TABLE cellpadding="5" cellspacing="0" WIDTH="100%">
+				<TR class="dark">
+					<TD WIDTH="40%" NOWRAP class="fleftu"><B>{t}Device{/t}:</B></TD>
+					<TD WIDTH="10%" NOWRAP class="fbt" COLSPAN="2">{t}Numer seryjny{/t}:</TD>
+					<TD WIDTH="10%" NOWRAP class="fbt">{t}Buy date{/t}:</TD>
+					<TD WIDTH="40%" NOWRAP class="fbt">{t}Vendor{/t}:</TD>
+					<TD WIDTH="1%" class="frightu">&nbsp;</TD>
+				</TR>
+				{cycle values="light,lucid" print=false}
+				{foreach from=$customerdevice item=customerdevices}
+				<TR class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+					<TD WIDTH="40%" NOWRAP><B><A HREF="?m=deviceinfo&id={$customerdevices.id}">{$customerdevices.model}</A></B></TD>
+					<TD WIDTH="10%" NOWRAP COLSPAN="2">{$customerdevices.serialnumber}</TD>
+					<TD WIDTH="10%" NOWRAP>{$customerdevices.buydate}</TD>
+					<TD WIDTH="40%" NOWRAP>{$customerdevices.vendor}</TD>
+					<TD WIDTH="1%" ALIGN="RIGHT" NOWRAP><A onClick="return confirmLink(this, '{t}Remove device from customer?{/t}')" HREF="?m=customerdevicedel&customerdeviceid={$customerdevices.id}&id={$customerinfo.id}" {tip text="Remove device from customer?"}>{t}Delete{/t} <IMG SRC="img/delete.gif" ALT=""></A></TD>
+				</TR>
+				{foreachelse}
+				<TR>
+					<TD align="center" WIDTH="100%" colspan="5">
+						<p>&nbsp;</p>
+						<p><B>{t}No devices{/t}</B></p>
+						<p>&nbsp;</p>
+					</TD>
+				</TR>
+				{/foreach}
+				<FORM METHOD="POST" NAME="customerdeviceassignment" ACTION="?m=customerdeviceadd&id={$customerinfo.id}">
+				<INPUT type="submit" class="hiddenbtn">
+				<TR class="light">
+					<TD COLSPAN="5" CLASS="ftop">
+						<B>{t}Add:{/t}</B>
+						<SELECT SIZE="1" NAME="customerdeviceid" {tip text="Enter device model"}>
+							<OPTION VALUE="0">{t}...choose device...{/t}</OPTION>
+							{section name=t loop=$othercustomerdevice}
+							<OPTION VALUE="{$othercustomerdevice[t].id}">{$othercustomerdevice[t].model} {if $othercustomerdevice[t].serialnumber}(S/N: {$othercustomerdevice[t].serialnumber}, {$othercustomerdevice[t].buydate}){/if}</OPTION>
+							{/section}
+						</SELECT>
+						<NOBR>
+					</TD>
+					<TD ALIGN="RIGHT" CLASS="ftop" ROWSPAN="2" NOWRAP>
+						<A HREF="javascript:document.customerdeviceassignment.submit()" {tip text="Add device to customer"}>{t}Add{/t} <IMG SRC="img/save.gif" alt=""></A>
+					</TD>
+				</TR>
+				</FORM>
+			</TABLE>
+		</TD>
+	</TR>
+</TABLE>
+{literal}<SCRIPT>
+<!--
+	if(getCookie('devicepanel')=='1')
+	{
+		document.getElementById('devicepanel').style.display = '';
+	}
+//-->
+</SCRIPT>{/literal}
