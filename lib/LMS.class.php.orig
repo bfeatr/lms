@@ -2587,530 +2587,188 @@ class LMS
     {
         $this->SYSLOG = $syslog;
     }
- 
-function MacExists($id, $table)
- 	{
- 		switch($table)
- 		{
- 			case 0:
- 			    return $this->DB->GetOne('SELECT * FROM woj_mac_zmiany WHERE id = ?', array($id));
- 			    break;
- 			case 2:
- 			    return $this->DB->GetOne('SELECT * FROM woj_mac_arch WHERE id = ?', array($id));
- 			    break;
- 			case 1:
- 			default:
- 			    return $this->DB->GetOne('SELECT * FROM woj_mac_ok WHERE id = ?', array($id));
- 		}
- 	}
- 
- 	function GetMac($id, $table)
- 	{
- 		switch($table)
- 		{
- 			case 0:
- 			    return $this->DB->GetRow('SELECT id, inet_ntoa(ip) AS ip, mac, port, vlan, FROM_UNIXTIME(lastonline) AS lastonline FROM woj_mac_zmiany WHERE id = ?', array($id));
- 			    break;
- 			case 2:
-     			    return $this->DB->GetRow('SELECT id, inet_ntoa(ip) AS ip, mac, port, vlan, FROM_UNIXTIME(lastonline) AS lastonline FROM woj_mac_arch WHERE id = ?', array($id));
- 			    break;
- 			case 1:
- 			default:
- 			    return $this->DB->GetRow('SELECT id, inet_ntoa(ip) AS ip, mac, port, vlan, FROM_UNIXTIME(lastonline) AS lastonline FROM woj_mac_ok WHERE id = ?', array($id));
- 		}
- 	}
- 
- 	function DeleteMac($id, $table)
- 	{
- 		switch($table)
- 		{
- 			case 0:
- 			    return $this->DB->Execute('DELETE FROM woj_mac_zmiany WHERE id = ?', array($id));
- 			    break;
- 			case 2:
- 			    return $this->DB->Execute('DELETE FROM woj_mac_arch WHERE id = ?', array($id));
- 			    break;
- 			case 1:
- 			default:
- 			    return $this->DB->Execute('DELETE FROM woj_mac_ok WHERE id = ?', array($id));
- 		}
- 	}
- 
- 	function DeleteMacList($table=0, $search=NULL, $sqlskey='AND')
- 	{
- 		if(sizeof($search))
- 		{
- 			foreach($search as $key => $value)
- 			{
- 				$valoryg = trim($value);
- 				$value = str_replace(' ','%',trim($value));
- 				if($value!='')
- 				{
- 					$value2 = "'".$value."'";
- 					$value = "'%".$value."%'";
- 					switch($key)
- 					{
- 						case 'mac':
- 							$value = str_replace('-',':',$value);
- 							$searchargs[] = "(mac ?LIKE? $value)";
- 						break;
- 						case 'ip':
- 							$searchargs[] = "(ip = inet_aton('$valoryg'))";
- 						break;
- 						case 'port':
- 							$searchargs[] = "(port ?LIKE? $value2)";
- 						break;
- 						case 'vlan':
- 							$searchargs[] = "(vlan ?LIKE? $value2)";
- 						break;
- 						case 'from':
- 							$searchargs[] = "(lastonline >= UNIX_TIMESTAMP($valoryg))";
- 						break;
- 						case 'to':
- 							$searchargs[] = "(lastonline <= UNIX_TIMESTAMP($valoryg))";
- 						break;
- 						default:
- 							$searchargs[] = "$key ?LIKE? $value";
- 					}
- 				}
- 			}
- 		}
- 		
- 		if(isset($searchargs))
- 			$sqlsarg = implode(' '.$sqlskey.' ',$searchargs);
- 		
- 		switch($table)
- 		{
- 		    case 0: 
- 			$sqltable = 'woj_mac_zmiany';
- 			break;
- 		    case 2:
- 			$sqltable = 'woj_mac_arch';
- 			break;
- 		    case 1:
- 		    default:
- 			$sqltable = 'woj_mac_ok';
- 		}
- 		
- 		$maclist = $this->DB->Execute(
- 				'DELETE FROM '.$sqltable.' '
- 				.'WHERE 1=1 '
- 				.($sqlsarg !='' ? ' AND ('.$sqlsarg.')' :''));
- 		return $maclist;
- 	}
- 
- 	function UpdateMac($mac, $ip, $port, $vlan, $lastonline)
- 	{
- 		$this->DB->Execute('DELETE FROM woj_mac_zmiany WHERE mac = ? AND ip = inet_aton(?)', array($mac, $ip));
- 		return $this->DB->Execute('UPDATE woj_mac_ok SET port = ?, vlan = ?, lastonline = UNIX_TIMESTAMP(?) WHERE mac = ? AND ip = inet_aton(?)', array($port, $vlan, $lastonline, $mac, $ip));
- 	}
- 
- 	function ArchMac($id, $table)
- 	{
- 		$maclist = $this->GetMac($id, $table);
- 		
- 		$this->DB->Execute('INSERT INTO woj_mac_arch VALUES(NULL, inet_aton(?), ?, ?, ?, UNIX_TIMESTAMP(?))', array($maclist['ip'],$maclist['mac'],$maclist['port'],$maclist['vlan'],$maclist['lastonline']));
- 
- 		switch($table)
- 		{
- 			case 0:
- 			    return $this->DB->Execute('DELETE FROM woj_mac_zmiany WHERE id = ?', array($id));
- 			    break;
- 			case 2:
- 			    break;
- 			case 1:
- 			default:
- 			    return $this->DB->Execute('DELETE FROM woj_mac_ok WHERE id = ?', array($id));
- 		}
- 	}
- 
- 	function GetMacList($order='mac,asc',$table=0, $search=NULL, $sqlskey='AND', $details, $limit)
- 	{
- 		list($order,$direction) = sscanf($order, '%[^,],%s');
- 		($direction != 'desc') ? $direction = 'asc' : $direction = 'desc';
- 
- 		switch($order)
- 		{
- 			case 'id':
- 				$sqlord = 'ORDER BY id';
- 			break;
- 			case 'ip':
- 				$sqlord = 'ORDER BY ip';
- 			break;
- 			case 'port':
- 				$sqlord = 'ORDER BY port';
- 			break;
- 			case 'vlan':
- 				$sqlord = 'ORDER BY vlan';
- 			break;
- 			case 'lastonline':
- 				$sqlord = 'ORDER BY lastonline';
- 			break;
- 			case 'compact':
- 				$sqlord = 'GROUP by mac ORDER BY lastonline';
- 			break;
- 			default:
- 				$sqlord = 'ORDER BY mac';
- 			break;
- 		}
- 
- 		$over = 0; $below = 0; $sqlsarg = '';
- 
- 		if(sizeof($search))
- 			foreach($search as $key => $value)
- 			{
- 				$valoryg = $value;
- 				$value = str_replace(' ','%',trim($value));
- 				if($value!='')
- 				{
- 					$value2 = "'".$value."'";
- 					$value = "'%".$value."%'";
- 					switch($key)
- 					{
- 						case 'mac':
- 							$value = str_replace('-',':',$value);
- 							$searchargs[] = "(mac ?LIKE? $value)";
- 						break;
- 						case 'ip':
- 							$searchargs[] = "(ip = inet_aton('$valoryg'))";
- 						break;
- 						case 'port':
- 							$searchargs[] = "(port ?LIKE? $value2)";
- 						break;
- 						case 'vlan':
- 							$searchargs[] = "(vlan ?LIKE? $value2)";
- 						break;
- 						case 'from':
- 							$searchargs[] = "(lastonline >= UNIX_TIMESTAMP($valoryg))";
- 						break;
- 						case 'to':
- 							$searchargs[] = "(lastonline <= UNIX_TIMESTAMP($valoryg))";
- 						break;
- 						default:
- 							$searchargs[] = "$key ?LIKE? $value";
- 					}
- 				}
- 			}
- 
- 		if(isset($searchargs))
- 			$sqlsarg = implode(' '.$sqlskey.' ',$searchargs);
- 		
- 		switch($table)
- 		{
- 		    case 0: 
- 			$sqltable = 'woj_mac_zmiany';
- 			break;
- 		    case 2:
- 			$sqltable = 'woj_mac_arch';
- 			break;
- 		    case 1:
- 		    default:
- 			$sqltable = 'woj_mac_ok';
- 		}
- 
- 		$all = $this->DB->GetOne(
- 				'SELECT count(*) AS ile '
- 				.'FROM '.$sqltable.' '
- 				.'WHERE 1=1 '
- 				.($sqlsarg !='' ? ' AND ('.$sqlsarg.')' :'')
- 				.($sqlord !='' ? $sqlord.' '.$direction:''));
- 				
- 		$maclist = $this->DB->GetAll(
- 				'SELECT id, inet_ntoa(ip) AS ip, mac, port, vlan, FROM_UNIXTIME(lastonline) AS lastonline '
- 				.'FROM '.$sqltable.' '
- 				.'WHERE 1=1 '
- 				.($sqlsarg !='' ? ' AND ('.$sqlsarg.')' :'')
- 				.($sqlord !='' ? $sqlord.' '.$direction:'')
- 				.($limit ? ' LIMIT 0,'.$limit : ''));
- 
- 		if(isset($details)&&sizeof($maclist))
- 		{
- 		    foreach($maclist as $idx => $row)
- 		    {
- 			$nodeid = $this->GetNodeIDByMAC($row['mac']);
- 			$node = $this->GetNode($nodeid);
- 
- 			if( $node['ownerid'])
- 			{
- 			    $customer = $this->GetCustomer($node['ownerid']);
-     			    $maclist[$idx]['custnodeid'] = $customer['id'];
-         		    $maclist[$idx]['custnodename'] = $customer['customername'];
- 			    if($customer['phone3'])
-         			$maclist[$idx]['custnodeaddr'] = $customer['phone3'];
-         		    else
-         			$maclist[$idx]['custnodeaddr'] = $customer['address'];
-         		    $maclist[$idx]['custnodetype'] = 0;
-             		} else if( $node['netdev'])
-             		{
-                 	    $netdev = $this->GetNetDev($node['netdev']);
-                     	    $maclist[$idx]['custnodeid'] = $netdev['id'];
-                     	    $maclist[$idx]['custnodename'] = $netdev['name'].' ('.$netdev['producer'].')';
-         		    $maclist[$idx]['custnodetype'] = 1;
-                     	}
- 		    }
- 		}
- 
- 		$maclist['total'] = sizeof($maclist);
- 		$maclist['state'] = $state;
- 		$maclist['order'] = $order;
- 		$maclist['direction'] = $direction;
- 		$maclist['below']= $below;
- 		$maclist['over']= $over;
- 		$maclist['all'] = $all;
- 
- 		return $maclist;
- 	}
-function GetDeviceListS($order='model,asc', $search=NULL, $sqlskey='AND')
-	{
-		if($order=='')
-			$order='model,asc';
-
-		list($order,$direction) = sscanf($order, '%[^,],%s');
-
-		($direction=='desc') ? $direction = 'desc' : $direction = 'asc';
-
-		switch($order)
-		{
-			case 'id':
-				$sqlord = ' ORDER BY id';
-			break;
-			case 'vendor':
-				$sqlord = ' ORDER BY vendor';
-			break;
-			case 'buydate':
-				$sqlord = ' ORDER BY buydate';
-			break;
-			case 'price':
-				$sqlord = ' ORDER BY price';
-			break;
-			case 'serialnumber':
-				$sqlord = ' ORDER BY serialnumber';
-			break;
-			case 'customername':
-				$sqlord = ' ORDER BY customername';
-			break;
-			default:
-				$sqlord = ' ORDER BY model';
-			break;
-		}
-		if(sizeof($search))
-			foreach($search as $idx => $value)
-			{
-				if($value!='')
-				{
-					$searchargs[] = "UPPER(model) ?LIKE? UPPER('%".$value."%') OR UPPER(serialnumber) ?LIKE? UPPER('%".$value."%') OR UPPER(vendor) ?LIKE? UPPER('%".$value."%')";
-				}
-			}
-
-		if($searchargs)
-			$searchargs = ' AND ('.implode(' '.$sqlskey.' ',$searchargs).')';
-
-		if($devicelist = $this->DB->GetAll('SELECT woj_device.id as id, model, serialnumber, buydate, vendor, price, customerid, '
-			.$this->DB->Concat('lastname',"' '",'name').' as customername '
-			.'FROM woj_device LEFT JOIN customers ON customerid=customers.id WHERE 1=1 '
-			.$searchargs
-			.($sqlord != '' ? $sqlord.' '.$direction : '')))
-
-		$devicelist['total'] = sizeof($devicelist);
-		$devicelist['order'] = $order;
-		$devicelist['direction'] = $direction;
-
-		return $devicelist;
-	}
-
-	function GetDeviceList($order='model,asc')
-	{
-		list($order,$direction) = sscanf($order, '%[^,],%s');
-
-		($direction=='desc') ? $direction = 'desc' : $direction = 'asc';
-
-		switch($order)
-		{
-			case 'id':
-				$sqlord = ' ORDER BY id';
-			break;
-			case 'vendor':
-				$sqlord = ' ORDER BY vendor';
-			break;
-			case 'buydate':
-				$sqlord = ' ORDER BY buydate';
-			break;
-			case 'price':
-				$sqlord = ' ORDER BY price';
-			break;
-			case 'serialnumber':
-				$sqlord = ' ORDER BY serialnumber';
-			break;
-			case 'customername':
-				$sqlord = ' ORDER BY customername';
-			break;
-			default:
-				$sqlord = ' ORDER BY model';
-			break;
-		}
-
-		if($devicelist = $this->DB->GetAll('SELECT woj_device.id as id, model, serialnumber, buydate, vendor, price, customerid, '
-			.$this->DB->Concat('lastname',"' '",'name').' as customername '
-			.'FROM woj_device LEFT JOIN customers ON customerid=customers.id '.($sqlord != '' ? $sqlord.' '.$direction : '')))
-
-		$devicelist['total'] = sizeof($devicelist);
-		$devicelist['order'] = $order;
-		$devicelist['direction'] = $direction;
-		return $devicelist;
-	}
-
-	function GetDeviceListU()
-	{
-		if($devicelist = $this->DB->GetAll('SELECT id, model, serialnumber, buydate, vendor, price, customerid FROM woj_device WHERE customerid=0 OR customerid is NULL ORDER BY model'));
-		return $devicelist;
-	}
-
-	function GetDeviceListC($id)
-	{
-		if($devicelist = $this->DB->GetAll('SELECT id, model, serialnumber, buydate, vendor, price FROM woj_device WHERE customerid=? ORDER BY model', array($id)));
-		return $devicelist;
-	}
-
-	function CustomerDeviceAdd($id,$deviceid)
-	{
-		$this->DB->Execute('UPDATE woj_device SET customerid=? WHERE id=?', array($id, $deviceid) );
-	}
-
-	function CustomerDeviceDelete($deviceid)
-	{
-		$this->DB->Execute('UPDATE woj_device SET customerid=0 WHERE id=?', array($deviceid) );
-	}
-
-	function DeviceUpdate($devicedata)
-	{
-		$this->DB->Execute('UPDATE woj_device SET model=?, serialnumber=?, buydate=?, vendor=?, price=?, info=?, customerid=? WHERE id=?', array( $devicedata['model'], $devicedata['serialnumber'], $devicedata['buydate'], $devicedata['vendor'], $devicedata['price'], $devicedata['info'], $devicedata['customerid'], $devicedata['id'] ) );
-	}
-
-	function GetDevice($id)
-	{
-		$result = $this->DB->GetRow('SELECT id, model, serialnumber, buydate, vendor, price, info, customerid FROM woj_device WHERE id=?', array($id));
-		return $result;
-	}
-
-	function GetDeviceBySN($serialnumber)
-	{
-		$result = $this->DB->GetRow('SELECT id, model, serialnumber, buydate, vendor, price, info, customerid FROM woj_device WHERE UPPER(serialnumber)=?', array(strtoupper($serialnumber)));
-		return $result;
-	}
-
-	function GetModels()
-	{
-		$result = $this->DB->GetAll('SELECT max(id) AS id, model FROM woj_device GROUP BY model ORDER BY model');
-		return $result;
-	}
-
-	function GetModel($id)
-	{
-		$result = $this->DB->GetRow('SELECT model FROM woj_device WHERE id=?', array($id));
-		return $result;
-	}
-
-	function GetVendors()
-	{
-		$result = $this->DB->GetAll('SELECT max(id) AS id, vendor FROM woj_device GROUP BY vendor ORDER BY vendor');
-		return $result;
-	}
-
-	function GetVendor($id)
-	{
-		$result = $this->DB->GetRow('SELECT vendor FROM woj_device WHERE id=?', array($id));
-		return $result;
-	}
-
-	function DeviceAdd($devicedata)
-	{
-		if($this->DB->Execute('INSERT INTO woj_device (model, serialnumber, buydate, vendor, price, info, customerid ) VALUES (?, ?, ?, ?, ?, ?, ?)', array($devicedata['model'],$devicedata['serialnumber'],$devicedata['buydate'],$devicedata['vendor'],$devicedata['price'],$devicedata['info'],$devicedata['customerid'])))
-//			return $this->DB->GetLastInsertID('woj_device');
-			return $this->DB->GetOne('SELECT MAX(id) FROM woj_device');
-		else
-			return FALSE;
-	}
-
-	function DeviceExists($id)
-	{
-		return ($this->DB->GetOne('SELECT * FROM woj_device WHERE id=?', array($id)) ? TRUE : FALSE);
-	}
-
-	function DeleteDevice($id)
-	{
-		return $this->DB->Execute('DELETE FROM woj_device WHERE id=?', array($id));
-	}
-
- function GetDeviceListB($order = 'model,asc', $search = NULL, $sqlskey = 'AND') {
-		if ($order == '')
-			$order = 'model,asc';
-
-		list($order, $direction) = sscanf($order, '%[^,],%s');
-
-		($direction == 'desc') ? $direction = 'desc' : $direction = 'asc';
-
-		switch ($order) {
-			case 'id':
-				$sqlord = ' ORDER BY id';
-			break;
-			case 'vendor':
-				$sqlord = ' ORDER BY vendor';
-			break;
-			case 'buydate':
-				$sqlord = ' ORDER BY buydate';
-			break;
-			case 'price':
-				$sqlord = ' ORDER BY price';
-			break;
-			case 'serialnumber':
-				$sqlord = ' ORDER BY serialnumber';
-			break;
-			case 'customername':
-				$sqlord = ' ORDER BY customername';
-			break;
-			default:
-				$sqlord = ' ORDER BY model';
-			break;
-		}
-
-		if (sizeof($search))
-			foreach ($search as $idx => $value) {
-				if ($value != '') {
-					switch ($idx) {
-						case 'name' :
-							$searchargs[] = 'model ?LIKE? ' . $this->DB->Escape("%$value%");
-							break;
-						case 'serialnumber' :
-							$searchargs[] = 'serialnumber ?LIKE? ' . $this->DB->Escape("%$value%");
-							break;
-						case 'vendor' :
-							$searchargs[] = 'vendor ?LIKE? ' . $this->DB->Escape("%$value%");
-							break;
-						case 'info' :
-							$searchargs[] = 'info ?LIKE? ' . $this->DB->Escape("%$value%");
-							break;
-						default :
-							$searchargs[] = $idx . ' ?LIKE? ' . $this->DB->Escape("%$value%");
-					}
-				}
-			}
-
-		if (isset($searchargs))
-			$sqlskey=' AND ';
-			$searchargs = ' WHERE ' . implode(' ' . $sqlskey . ' ', $searchargs);
-
-		$voipaccountlist =
-				$this->DB->GetAll('SELECT id, model, vendor, serialnumber, customerid, info, buydate
-				FROM woj_device'
-				. (isset($searchargs) ? $searchargs : '')
-				. ($sqlord != '' ? $sqlord . ' ' . $direction : ''));
-
-		$voipaccountlist['total'] = sizeof($voipaccountlist);
-		$voipaccountlist['order'] = $order;
-		$voipaccountlist['direction'] = $direction;
-
-		return $voipaccountlist;
-	}
 
 }
-   
+    function GetSprzetListS($order='nazwa,asc', $search=NULL, $sqlskey='AND')
+         {
+                 if($order=='')
+                         $order='nazwa,asc';
+ 
+                 list($order,$direction) = sscanf($order, '%[^,],%s');
+ 
+                 ($direction=='desc') ? $direction = 'desc' : $direction = 'asc';
+ 
+                 switch($order)
+                 {
+                         case 'id':
+                                 $sqlord = ' ORDER BY id';
+                         break;
+                         case 'dostawca':
+                                 $sqlord = ' ORDER BY dostawca';
+                         break;
+                         case 'datazakupu':
+                                 $sqlord = ' ORDER BY datazakupu';
+                         break;
+                         case 'gwarancja':
+                                 $sqlord = ' ORDER BY gwarancja';
+                         break;
+                         case 'numerseryjny':
+                                 $sqlord = ' ORDER BY numerseryjny';
+                         break;
+                         case 'customername':
+                                 $sqlord = ' ORDER BY customername';
+                         break;
+                         default:
+                                 $sqlord = ' ORDER BY nazwa';
+                         break;
+                 }
+                 if(sizeof($search))
+                 foreach($search as $idx => $value)
+                 {
+                         if($value!='')
+                         {
+                                 $searchargs[] = "UPPER(nazwa) ?LIKE? UPPER('%".$value."%') OR UPPER(numerseryjny) ?LIKE? UPPER('%".$value."%') OR UPPER(dostawca) ?LIKE? UPPER('%".$value."%')";
+                         }
+                 }
+ 
+                 if($searchargs)
+                         $searchargs = ' AND ('.implode(' '.$sqlskey.' ',$searchargs).')';
+ 
+                 if($sprzetlist = $this->DB->GetAll('SELECT sprzet.id as id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja, customerid, concat(lastname, " ", name) as customername '
+                                         .'FROM sprzet LEFT JOIN customers ON customerid=customers.id WHERE 1=1 '
+                                         .$searchargs
+                                         .($sqlord != '' ? $sqlord.' '.$direction : '')))
+ /*
+                 if($sprzetlist = $this->DB->GetAll('SELECT nodes.id AS id, ipaddr, inet_ntoa(ipaddr) AS ip, ipaddr_pub, inet_ntoa(ipaddr_pub) AS ip_pub, mac, nodes.name AS name, ownerid, access, warning, netdev, lastonline, nodes.info AS info, '
+                                         .$this->DB->Concat('UPPER(lastname)',"' '",'customers.name').' AS owner
+                                         FROM nodes LEFT JOIN customers ON ownerid = customers.id WHERE ownerid > 0'
+                                         .($network ? ' AND ((ipaddr > '.$net['address'].' AND ipaddr < '.$net['broadcast'].') OR ( ipaddr_pub > '.$net['address'].' AND ipaddr_pub < '.$net['broadcast'].'))' : '')
+                                         .($status==1 ? ' AND access = 1' : '') //connected
+                                         .($status==2 ? ' AND access = 0' : '') //disconnected
+                                         .($status==3 ? ' AND lastonline > ?NOW? - '.$this->CONFIG['phpui']['lastonline_limit'] : '') //online
+                                         .$searchargs
+                                         .($sqlord != '' ? $sqlord.' '.$direction : '')))
+ */
+                 $sprzetlist['total'] = sizeof($sprzetlist);
+                 $sprzetlist['order'] = $order;
+                 $sprzetlist['direction'] = $direction;
+ 
+                 return $sprzetlist;
+         }
+ 
+         function GetSprzetList($order='nazwa,asc')
+         {
+                 list($order,$direction) = sscanf($order, '%[^,],%s');
+ 
+                 ($direction=='desc') ? $direction = 'desc' : $direction = 'asc';
+ 
+                 switch($order)
+                 {
+                         case 'id':
+                                 $sqlord = ' ORDER BY id';
+                         break;
+                         case 'dostawca':
+                                 $sqlord = ' ORDER BY dostawca';
+                         break;
+                         case 'datazakupu':
+                                 $sqlord = ' ORDER BY datazakupu';
+                         break;
+                         case 'gwarancja':
+                                 $sqlord = ' ORDER BY gwarancja';
+                         break;
+                         case 'numerseryjny':
+                                 $sqlord = ' ORDER BY numerseryjny';
+                         break;
+                         case 'customername':
+                                 $sqlord = ' ORDER BY customername';
+                         break;
+                         default:
+                                 $sqlord = ' ORDER BY nazwa';
+                         break;
+                 }
+ 
+ //              if($sprzetlist = $this->DB->GetAll('SELECT sprzet.id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja, customerid, concat(lastname, " ", name) as customername FROM sprzet,customers WHERE sprzet.customerid=customers.id '.($sqlord != '' ? $sqlord.' '.$direction : '')))
+                 if($sprzetlist = $this->DB->GetAll('SELECT sprzet.id as id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja, customerid, concat(lastname, " ", name) as customername FROM sprzet LEFT JOIN customers ON customerid=customers.id '.($sqlord != '' ? $sqlord.' '.$direction : '')))
+                 $sprzetlist['total'] = sizeof($sprzetlist);
+                 $sprzetlist['order'] = $order;
+                 $sprzetlist['direction'] = $direction;
+                 return $sprzetlist;
+         }
+ 
+         function GetSprzetListU()
+         {
+                 if($sprzetlist = $this->DB->GetAll('SELECT id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja, customerid FROM sprzet WHERE customerid=0 OR customerid is NULL ORDER BY nazwa'));
+                 return $sprzetlist;
+         }
+ 
+         function GetSprzetListC($id)
+         {
+                 if($sprzetlist = $this->DB->GetAll('SELECT id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja FROM sprzet WHERE customerid=? ORDER BY nazwa', array($id)));
+                 return $sprzetlist;
+         }
+ 
+         function CustomerSprzetAdd($id,$sprzetid)
+         {
+                 $this->DB->Execute('UPDATE sprzet SET customerid=? WHERE id=?', array($id, $sprzetid) );
+         }
+ 
+         function CustomerSprzetDelete($sprzetid)
+         {
+                 $this->DB->Execute('UPDATE sprzet SET customerid=0 WHERE id=?', array($sprzetid) );
+         }
+ 
+         function SprzetUpdate($sprzetdata)
+         {
+                 $this->DB->Execute('UPDATE sprzet SET nazwa=?, numerseryjny=?, datazakupu=?, dostawca=?, gwarancja=?, opis=?, customerid=? WHERE id=?', array( $sprzetdata['nazwa'], $sprzetdata['numerseryjny'], $sprzetdata['datazakupu'], $sprzetdata['dostawca'], $sprzetdata['gwarancja'], $sprzetdata['opis'], $sprzetdata['customerid'], $sprzetdata['id'] ) );
+         }
+         function GetSprzet($id)
+         {
+                 $result = $this->DB->GetRow('SELECT id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja, opis, customerid FROM sprzet WHERE id=?', array($id));
+                 return $result;
+         }
+ 
+         function GetNazwy()
+         {
+                 $result = $this->DB->GetAll('SELECT id, nazwa FROM sprzet GROUP BY nazwa');
+                 return $result;
+         }
+ 
+         function GetNazwa($id)
+         {
+                 $result = $this->DB->GetRow('SELECT nazwa FROM sprzet WHERE id=?', array($id));
+                 return $result;
+         }
+ 
+         function GetDostawcy()
+         {
+                 $result = $this->DB->GetAll('SELECT id, dostawca FROM sprzet WHERE dostawca <> "" GROUP BY dostawca');
+                 return $result;
+         }
+ 
+         function GetDostawca($id)
+         {
+                 $result = $this->DB->GetRow('SELECT dostawca FROM sprzet WHERE id=?', array($id));
+                 return $result;
+         }
+         function SprzetAdd($sprzetdata)
+         {
+                 if($this->DB->Execute('INSERT INTO sprzet (nazwa, numerseryjny, datazakupu, dostawca, gwarancja, opis, customerid ) VALUES (?, ?, ?, ?, ?, ?, ?)', array($sprzetdata['nazwa'],$sprzetdata['numerseryjny'],$sprzetdata['datazakupu'],$sprzetdata['dostawca'],$sprzetdata['gwarancja'],$sprzetdata['opis'],$sprzetdata['customerid'])))
+                         return $this->DB->GetOne('SELECT MAX(id) FROM sprzet');
+                 else
+                         return FALSE;
+         }
+ 
+         function SprzetExists($id)
+         {
+                 return ($this->DB->GetOne('SELECT * FROM sprzet WHERE id=?', array($id)) ? TRUE : FALSE);
+         }
+ 
+         function DeleteSprzet($id)
+         {
+                 return $this->DB->Execute('DELETE FROM sprzet WHERE id=?', array($id));
+         }
+ 
+ 	/*
+ 	 *   Request Tracker (Helpdesk)
+ 	 */
+

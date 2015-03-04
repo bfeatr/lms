@@ -127,15 +127,6 @@ $access['table'][30]['privilege']     = 'hide_voip_passwords';
 $access['table'][31]['name']		= trans('traffic stats compacting');
 $access['table'][31]['allow_reg']	= '^trafficdbcompact$';
 
-$access['table'][249]['name']		= trans('backup access forbidden');
-$access['table'][249]['deny_reg']	= '^db(del|list|new|recover|view)$';
-
-$access['table'][253]['name']		= trans('users edition and addition forbidden');
-$access['table'][253]['deny_reg']	= '^(user(add|del|edit|passwd))$';
-
-$access['table'][255]['name']		= trans('no access');
-$access['table'][255]['deny_reg']	= '^.*$';
-
 $access['table'][34]['name']            = 'GPON - zarzadzanie modulem';
 $access['table'][34]['allow_reg']       = '^gpon.*$';
 
@@ -145,6 +136,22 @@ $access['table'][32]['allow_reg']       = '^((gponolt|gpononu|gpononumodels)(inf
 $access['table'][33]['name']            = 'GPON - Autoprovisioning (nowy onu)';
 $access['table'][33]['allow_reg']       = '^(gpononu(add|script))$';
 
+$access['table'][100]['name']           = 'Uprawnienia Monterow Sokolka';
+$access['table'][100]['allow_reg']      = '^(node|voip|sprzet|netdev|mac|netlist|netinfo|customer(search|group)|customersprzet|customerinfo|reload|traffic|rt|event(list|edit|add|del|info|print|search)$|europort(macs|status|graph)|chooseip)';
+$access['table'][100]['privillege']     = 'hide_summaries';
+
+$access['table'][101]['name']           = 'Uprawnienia Monterow Wasilkow/Choroszcz';
+$access['table'][101]['allow_reg']      = '^(node|voip|sprzet|netdev|mac|netlist|netinfo|customer(search|group)|customersprzet|customerinfo|reload|traffic|rt|event(list|edit|add|del|info|print|search)$|europort(macs|status|graph)|chooseip)';
+$access['table'][101]['privillege']     = 'hide_summaries';
+
+$access['table'][249]['name']		= trans('backup access forbidden');
+$access['table'][249]['deny_reg']	= '^db(del|list|new|recover|view)$';
+
+$access['table'][253]['name']		= trans('users edition and addition forbidden');
+$access['table'][253]['deny_reg']	= '^(user(add|del|edit|passwd))$';
+
+$access['table'][255]['name']		= trans('no access');
+$access['table'][255]['deny_reg']	= '^.*$';
 
 // read user-defined access rights table
 $custom_access_table = ConfigHelper::getConfig('phpui.custom_accesstable');

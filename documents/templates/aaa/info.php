@@ -1,9 +1,9 @@
 <?php
 
 /*
- * LMS version 1.11.9 Moloc
+ * LMS version 1.11-git
  *
- *  (C) Copyright 2001-2009 LMS Developers
+ *  (C) Copyright 2001-2013 LMS Developers
  *
  *  Please, see the doc/AUTHORS for more information about authors!
  *
@@ -21,18 +21,19 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
  *  USA.
  *
- *  $Id: info.php,v 1.9 2009/01/13 07:45:33 alec Exp $
+ *  $Id$
  */
 
 $engine = array(
 	'name' => 'aaa', 	// template directory
 	'engine' => 'aaa', 	// engine.php directory
 				// you can use other engine
+	'type' => DOC_CONTRACT,			// it's also possible to use array of document types in this field
 	'template' => 'template.html', 		// template file (in 'name' dir)
-	'title' => trans('wzor 2014.02.27'), 	// description for UI
+	'title' => trans('2015'), 	// description for UI
 	'content_type' => 'text/html', 		// output file type
 	'output' => 'umowa.html', 		// output file name
-	'plugin' => 'plugin.html',		// form plugin (in 'name' dir)
+	'plugin' => 'plugin',			// form plugin (in 'name' dir)
 	'post-action' => 'post-action',		// action file executed after document addition (in transaction)
 )
 

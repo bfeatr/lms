@@ -1,0 +1,192 @@
+--- LMS.class.sprzet.php	2009-10-28 10:08:02.000000000 +0100
++++ LMS.class.php	2010-02-12 16:17:22.000000000 +0100
+@@ -3118,6 +3118,189 @@
+ 	}
+ 
+ 	/*
++	 *   Sprzet klientow
++	 */
++
++        function GetSprzetListS($order='nazwa,asc', $search=NULL, $sqlskey='AND')
++        {
++                if($order=='')
++                        $order='nazwa,asc';
++
++                list($order,$direction) = sscanf($order, '%[^,],%s');
++
++                ($direction=='desc') ? $direction = 'desc' : $direction = 'asc';
++
++                switch($order)
++                {
++                        case 'id':
++                                $sqlord = ' ORDER BY id';
++                        break;
++                        case 'dostawca':
++                                $sqlord = ' ORDER BY dostawca';
++                        break;
++                        case 'datazakupu':
++                                $sqlord = ' ORDER BY datazakupu';
++                        break;
++                        case 'gwarancja':
++                                $sqlord = ' ORDER BY gwarancja';
++                        break;
++                        case 'numerseryjny':
++                                $sqlord = ' ORDER BY numerseryjny';
++                        break;
++                        case 'customername':
++                                $sqlord = ' ORDER BY customername';
++                        break;
++                        default:
++                                $sqlord = ' ORDER BY nazwa';
++                        break;
++                }
++                if(sizeof($search))
++                foreach($search as $idx => $value)
++                {
++                        if($value!='')
++                        {
++                                $searchargs[] = "UPPER(nazwa) ?LIKE? UPPER('%".$value."%') OR UPPER(numerseryjny) ?LIKE? UPPER('%".$value."%') OR UPPER(dostawca) ?LIKE? UPPER('%".$value."%')";
++                        }
++                }
++
++                if($searchargs)
++                        $searchargs = ' AND ('.implode(' '.$sqlskey.' ',$searchargs).')';
++
++                if($sprzetlist = $this->DB->GetAll('SELECT sprzet.id as id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja, customerid, concat(lastname, " ", name) as customername '
++                                        .'FROM sprzet LEFT JOIN customers ON customerid=customers.id WHERE 1=1 '
++                                        .$searchargs
++                                        .($sqlord != '' ? $sqlord.' '.$direction : '')))
++/*
++                if($sprzetlist = $this->DB->GetAll('SELECT nodes.id AS id, ipaddr, inet_ntoa(ipaddr) AS ip, ipaddr_pub, inet_ntoa(ipaddr_pub) AS ip_pub, mac, nodes.name AS name, ownerid, access, warning, netdev, lastonline, nodes.info AS info, '
++                                        .$this->DB->Concat('UPPER(lastname)',"' '",'customers.name').' AS owner
++                                        FROM nodes LEFT JOIN customers ON ownerid = customers.id WHERE ownerid > 0'
++                                        .($network ? ' AND ((ipaddr > '.$net['address'].' AND ipaddr < '.$net['broadcast'].') OR ( ipaddr_pub > '.$net['address'].' AND ipaddr_pub < '.$net['broadcast'].'))' : '')
++                                        .($status==1 ? ' AND access = 1' : '') //connected
++                                        .($status==2 ? ' AND access = 0' : '') //disconnected
++                                        .($status==3 ? ' AND lastonline > ?NOW? - '.$this->CONFIG['phpui']['lastonline_limit'] : '') //online
++                                        .$searchargs
++                                        .($sqlord != '' ? $sqlord.' '.$direction : '')))
++*/
++                $sprzetlist['total'] = sizeof($sprzetlist);
++                $sprzetlist['order'] = $order;
++                $sprzetlist['direction'] = $direction;
++
++                return $sprzetlist;
++        }
++
++        function GetSprzetList($order='nazwa,asc')
++        {
++                list($order,$direction) = sscanf($order, '%[^,],%s');
++
++                ($direction=='desc') ? $direction = 'desc' : $direction = 'asc';
++
++                switch($order)
++                {
++                        case 'id':
++                                $sqlord = ' ORDER BY id';
++                        break;
++                        case 'dostawca':
++                                $sqlord = ' ORDER BY dostawca';
++                        break;
++                        case 'datazakupu':
++                                $sqlord = ' ORDER BY datazakupu';
++                        break;
++                        case 'gwarancja':
++                                $sqlord = ' ORDER BY gwarancja';
++                        break;
++                        case 'numerseryjny':
++                                $sqlord = ' ORDER BY numerseryjny';
++                        break;
++                        case 'customername':
++                                $sqlord = ' ORDER BY customername';
++                        break;
++                        default:
++                                $sqlord = ' ORDER BY nazwa';
++                        break;
++                }
++
++//              if($sprzetlist = $this->DB->GetAll('SELECT sprzet.id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja, customerid, concat(lastname, " ", name) as customername FROM sprzet,customers WHERE sprzet.customerid=customers.id '.($sqlord != '' ? $sqlord.' '.$direction : '')))
++                if($sprzetlist = $this->DB->GetAll('SELECT sprzet.id as id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja, customerid, concat(lastname, " ", name) as customername FROM sprzet LEFT JOIN customers ON customerid=customers.id '.($sqlord != '' ? $sqlord.' '.$direction : '')))
++                $sprzetlist['total'] = sizeof($sprzetlist);
++                $sprzetlist['order'] = $order;
++                $sprzetlist['direction'] = $direction;
++                return $sprzetlist;
++        }
++
++        function GetSprzetListU()
++        {
++                if($sprzetlist = $this->DB->GetAll('SELECT id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja, customerid FROM sprzet WHERE customerid=0 OR customerid is NULL ORDER BY nazwa'));
++                return $sprzetlist;
++        }
++
++        function GetSprzetListC($id)
++        {
++                if($sprzetlist = $this->DB->GetAll('SELECT id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja FROM sprzet WHERE customerid=? ORDER BY nazwa', array($id)));
++                return $sprzetlist;
++        }
++
++        function CustomerSprzetAdd($id,$sprzetid)
++        {
++                $this->DB->Execute('UPDATE sprzet SET customerid=? WHERE id=?', array($id, $sprzetid) );
++        }
++
++        function CustomerSprzetDelete($sprzetid)
++        {
++                $this->DB->Execute('UPDATE sprzet SET customerid=0 WHERE id=?', array($sprzetid) );
++        }
++
++        function SprzetUpdate($sprzetdata)
++        {
++                $this->DB->Execute('UPDATE sprzet SET nazwa=?, numerseryjny=?, datazakupu=?, dostawca=?, gwarancja=?, opis=?, customerid=? WHERE id=?', array( $sprzetdata['nazwa'], $sprzetdata['numerseryjny'], $sprzetdata['datazakupu'], $sprzetdata['dostawca'], $sprzetdata['gwarancja'], $sprzetdata['opis'], $sprzetdata['customerid'], $sprzetdata['id'] ) );
++        }
++        function GetSprzet($id)
++        {
++                $result = $this->DB->GetRow('SELECT id, nazwa, numerseryjny, datazakupu, dostawca, gwarancja, opis, customerid FROM sprzet WHERE id=?', array($id));
++                return $result;
++        }
++
++        function GetNazwy()
++        {
++                $result = $this->DB->GetAll('SELECT id, nazwa FROM sprzet GROUP BY nazwa');
++                return $result;
++        }
++
++        function GetNazwa($id)
++        {
++                $result = $this->DB->GetRow('SELECT nazwa FROM sprzet WHERE id=?', array($id));
++                return $result;
++        }
++
++        function GetDostawcy()
++        {
++                $result = $this->DB->GetAll('SELECT id, dostawca FROM sprzet WHERE dostawca <> "" GROUP BY dostawca');
++                return $result;
++        }
++
++        function GetDostawca($id)
++        {
++                $result = $this->DB->GetRow('SELECT dostawca FROM sprzet WHERE id=?', array($id));
++                return $result;
++        }
++        function SprzetAdd($sprzetdata)
++        {
++                if($this->DB->Execute('INSERT INTO sprzet (nazwa, numerseryjny, datazakupu, dostawca, gwarancja, opis, customerid ) VALUES (?, ?, ?, ?, ?, ?, ?)', array($sprzetdata['nazwa'],$sprzetdata['numerseryjny'],$sprzetdata['datazakupu'],$sprzetdata['dostawca'],$sprzetdata['gwarancja'],$sprzetdata['opis'],$sprzetdata['customerid'])))
++                        return $this->DB->GetOne('SELECT MAX(id) FROM sprzet');
++                else
++                        return FALSE;
++        }
++
++        function SprzetExists($id)
++        {
++                return ($this->DB->GetOne('SELECT * FROM sprzet WHERE id=?', array($id)) ? TRUE : FALSE);
++        }
++
++        function DeleteSprzet($id)
++        {
++                return $this->DB->Execute('DELETE FROM sprzet WHERE id=?', array($id));
++        }
++
++	/*
+ 	 *   Request Tracker (Helpdesk)
+ 	 */
+ 

@@ -1,13 +1,138 @@
 <TABLE cellpadding="3" WIDTH="100%">
-	<TR class="light">
-		<TD width="1%" class="fleftu">
-			<IMG src="img/docum.gif" alt="">
-		</TD>
-		<TD width="1%" class="fbt" NOWRAP>
-			<B>{trans("Additional information:")}</B>
-		</TD>
-		<TD width="98%" class="frightu" NOWRAP>
-			<TEXTAREA COLS="50" ROWS="5" name="document[notes]" {tip text="Enter additional information (optional)"}>{$document.notes}</TEXTAREA>
-		</TD>
-	</TR>
-</TABLE>
+<TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/attach.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Us³uga/Pakiet: </B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+               <div id="name">
+                    <INPUT type="text" name="document[nazwa]" /><BR>
+         </div>
+            </TD>
+       </TR>
+<TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/value.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Abonament: </B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+               <div id="name">
+                    <INPUT type="text" name="document[abonament]" /><BR>
+         </div>
+            </TD>
+       </TR>
+
+<TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/pay.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Op³ata aktywacyjna: </B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+               <div id="name">
+                    <INPUT type="text" name="document[aktywacja]" /><BR>
+         </div>
+            </TD>
+       </TR>
+
+<TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/values.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Kwota przyznanych ulg: </B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+               <div id="name">
+                    <INPUT type="text" name="document[upust]" /><BR>
+         </div>
+            </TD>
+       </TR>
+
+              <TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/docum.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Umowa na:</B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+                   <INPUT type="radio" NAME="document[period]" id="numowa36"
+value="36"><A HREF="javascript:checkElement('numowa36')">36 miesiêcy</a><BR>
+                   <INPUT type="radio" NAME="document[period]" id="numowa24"
+value="24" CHECKED><A HREF="javascript:checkElement('numowa24')">24
+miesi¹ce</a><BR>
+                   <INPUT type="radio" NAME="document[period]" id="numowa12"
+value="12"><A HREF="javascript:checkElement('numowa12')">12 miesiêcy</a><BR>
+                   <INPUT type="radio" NAME="document[period]" id="numowa3"
+value="3"><A HREF="javascript:checkElement('numowa3')">3 miesiêcy</a><BR>
+                   <INPUT type="radio" NAME="document[period]" id="numowa0"
+value="0"><A HREF="javascript:checkElement('numowa2')">na czas
+nieokreœlony</a><BR>
+               </TD>
+       </TR>
+       <TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/money.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Abonament:</B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+                 
+                        <INPUT type="checkbox" name="document[faktury]"
+value="1">&nbsp;Z fakturami (doliczone +5 z³)<BR>                    
+               </TD>
+       </TR>
+       <TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/attach.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Us³ugi<br>dodatkowe:</B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+               <div id="dodatkoweip">
+                    <INPUT type="checkbox" name="document[dodatkowyip]"
+value="1">&nbsp;Dodatkowy IP x
+                     <INPUT type="TEXT" name="document[ipnum]" value="0" SIZE="2"> <BR>
+         </div>
+               <div id="dodatkowetv">
+                    <INPUT type="checkbox" name="document[pierwszyhdd]"
+value="1">&nbsp;Pierwszy dekoder HDD<BR>
+                    <INPUT type="checkbox" name="document[stb]"
+value="1">&nbsp;Dodatkowy odbiornik x
+                     <INPUT type="TEXT" name="document[stbnum]" value="0" SIZE="2"> <BR>
+                    <INPUT type="checkbox" name="document[npvr]"
+value="1">&nbsp;NPVR<BR>
+                    <INPUT type="checkbox" name="document[pauza24]"
+value="1">&nbsp;TimeShift<BR>
+                    <INPUT type="checkbox" name="document[pauza]"
+value="1">&nbsp;Pauza<BR>
+         </div>
+               <div id="dodatkowetel">
+             <IMG src="img/phone.gif" alt="">
+                   <B>Nr telefonu:</B>
+                    <INPUT type="TEXT" name="document[phone]" value="" SIZE="8">
+                  
+         </div>
+         </TD>
+       </TR>
+       <TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/info.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Informacje<br>dodatkowe</B>
+               </TD>
+             <TD width="98%" class="frightu" NOWRAP>
+             <TEXTAREA COLS="50" ROWS="5" name="document[notes]" {tip text="Enter
+additional information (optional)"}>{$document.notes}</TEXTAREA>
+         </TD>
+    </TR>
+</TABLE> 

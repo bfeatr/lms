@@ -1,0 +1,11 @@
+--- customer.inc.php	2010-02-12 12:11:32.000000000 +0100
++++ customer.inc.sprzet.php	2010-02-12 12:08:54.000000000 +0100
+@@ -70,8 +68,6 @@
+ $SMARTY->assign_by_ref('customernodes', $customernodes);
+ $SMARTY->assign_by_ref('assignments', $assignments);
+ $SMARTY->assign_by_ref('customergroups', $customergroups);
+-$SMARTY->assign_by_ref('customersprzet', $customersprzet);
+-$SMARTY->assign_by_ref('othercustomersprzet', $othercustomersprzet);
+ $SMARTY->assign_by_ref('othercustomergroups', $othercustomergroups);
+ $SMARTY->assign_by_ref('balancelist', $balancelist);
+ $SMARTY->assign_by_ref('customervoipaccounts', $customervoipaccounts);

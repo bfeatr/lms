@@ -299,33 +299,6 @@ $menu = array(
 			),
 		),
 
-              'device' => array(
-			'name' => trans('Customer devices'),
-			'img' =>'mac.gif',
-			'link' =>'?m=device',
-			'tip' => trans('Customer devices'),
-			'accesskey' =>'p',
-			'prio' => '16',
-			'submenu' => array(
-				array(
-					'name' => trans('List'),
-					'link' => '?m=devicelist',
-					'tip' => trans('Customer devices list'),
-				),
-				array(
-					'name' => trans('New Device'),
-					'link' => '?m=deviceadd',
-					'tip' => trans('Add customer device'),
-				),
-				array(
-					'name' => trans('Search'),
-					'link' => '?m=searchdevice',
-					'tip' => trans('Search customer device'),
-				),
-
-			),
-		),
-
 		'finances' => array(
 			'name' => trans('Finances'),
 			'img' =>'money.gif',

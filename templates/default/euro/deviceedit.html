@@ -1,0 +1,100 @@
+{extends file="layout.html"}
+{block name=title}::: LMS :{$layout.pagetitle|striphtml} :::{/block}
+{block name=module_content}
+<TABLE WIDTH="100%" CELLPADDING="3" class="lmsbox">
+	<FORM NAME="deviceedit" METHOD="POST" ACTION="?m=deviceedit&id={$deviceinfo.id}">
+	<INPUT type="submit" class="hiddenbtn">
+	<TR CLASS="DARK">
+		<TD WIDTH="1%" CLASS="FLEFTU">
+			<IMG SRC="img/mac.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" CLASS="FBT">
+			<B>{t}Name:{/t}</B>
+		<TD WIDTH="98%" CLASS="FRIGHTU" COLSPAN="2">
+			<INPUT TYPE="TEXT" NAME="device[model]" VALUE="{$deviceinfo.model}" SIZE="80" MAXLENGTH="255" {tip trigger="model" text="Enter device name" bold=1}>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/producer.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Vendor{/t}:</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT" COLSPAN="2">
+			<INPUT TYPE="TEXT" NAME="device[vendor]" VALUE="{$deviceinfo.vendor}" SIZE="97" {tip text="Enter vendor (optional)"}>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/time.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Buy date{/t}:</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT" COLSPAN="2">
+			<INPUT TYPE="TEXT" NAME="device[buydate]" VALUE="{$deviceinfo.buydate}" {tip text="Enter buy date (optional)" }>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/serialnumber.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Serial number:{/t}</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT" COLSPAN="2">
+			<INPUT TYPE="TEXT" NAME="device[serialnumber]" VALUE="{$deviceinfo.serialnumber}" {tip text="Enter serial number (optional)"}>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/payment.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Price{/t}:</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT" COLSPAN="2">
+			<INPUT TYPE="TEXT" NAME="device[price]" VALUE="{$deviceinfo.price}" {tip text="Enter price"}>
+		</TD>
+	</TR>
+        <TR CLASS="LIGHT">
+                <TD WIDTH="1%" CLASS="FLEFT">
+                        <IMG SRC="img/customer.gif" ALT="">
+                </TD>
+                <TD WIDTH="1%" NOWRAP>
+                        <B>{t}Customer:{/t}</B>
+                </TD>
+                <TD WIDTH="98%" CLASS="FRIGHT">
+                        <SELECT SIZE="1" NAME="device[customer]" onChange="document.forms['deviceedit'].elements['device[customerid]'].value=document.forms['deviceedit'].elements['device[customer]'].value">
+                                <OPTION VALUE="0">{t}... select customer ...{/t}</OPTION>
+                                {foreach from=$customers item=c}
+                                <OPTION VALUE="{$c.id}"{if $c.id eq $customer.id} SELECTED{/if}>{$c.customername|truncate:"60":"..."} ({$c.id|string_format:"%04d"})</OPTION>
+                                {/foreach}
+                        </SELECT>
+                        {t}or Customer ID:{/t}
+                        <INPUT TYPE="TEXT" NAME="device[customerid]" VALUE="{if $customer.id}{$customer.id}{/if}" SIZE="5" onChange="document.forms['deviceedit'].elements['device[customer]'].value=document.forms['deviceedit'].elements['device[customerid]'].value">
+			<a href="javascript: void(0);" onClick="return customerchoosewin(document.forms['deviceedit'].elements['device[customerid]']);" {tip text="Click to search customer"}>{t}Search{/t}&nbsp;&raquo;&raquo;&raquo;</A>
+                </TD>
+        </TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/netdev_description.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Description:{/t}</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT" COLSPAN="2">
+			<TEXTAREA NAME="device[info]" COLS="80" ROWS="10" {tip text="Enter additional informations (optional)"}>{$deviceinfo.info}</TEXTAREA>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="100%" CLASS="FBOTTOMU" COLSPAN="4" ALIGN="RIGHT">
+			<A HREF="javascript:document.deviceedit.submit();" ACCESSKEY="S">{t}Submit{/t} <IMG SRC="img/save.gif" alt=""></A>
+			<A HREF="?m=deviceinfo&id={$deviceinfo.id}">{t}Cancel{/t} <IMG SRC="img/cancel.gif" alt=""></A>
+		</TD>
+	</TR>	
+	</FORM>
+</TABLE>
+{/block}
+{include file="footer.html"}

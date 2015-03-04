@@ -1,0 +1,149 @@
+{extends file="layout.html"}
+{block name=title}::: LMS :{$layout.pagetitle|striphtml} :::{/block}
+{block name=module_content}
+
+<P>
+<TABLE cellpadding="4" WIDTH="100%">
+    <TR class="dark" {tip text="Click on column name to change sorting order"}>
+         <TD width="97%" class="fleftu">
+              <img src="img/mac.gif" ALT="">&nbsp;<a href="?m=maclist&search=1&o=mac{if
+$listdata.direction eq "asc" && $listdata.order eq "mac"},desc{/if}">{t}MAC
+address:{/t}</A></B> {if $listdata.order eq "mac"}<IMG SRC="img/{if
+$listdata.direction eq "desc"}asc{else}desc{/if}_order.gif"
+alt="">{/if}&nbsp;/&nbsp;
+              <img src="img/ip.gif" ALT="">&nbsp;<a href="?m=maclist&search=1&o=ip{if
+$listdata.direction eq "asc" && $listdata.order eq "ip"},desc{/if}">{t}Switchs
+IP address:{/t}</A></B> {if $listdata.order eq "ip"}<IMG SRC="img/{if
+$listdata.direction eq "desc"}asc{else}desc{/if}_order.gif" alt="">{/if}
+              {if $details}&nbsp;/&nbsp;<img src="img/customer.gif"
+ALT="">&nbsp;{t}Customer{/t}/{t}Switch{/t}{/if}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <IMG src="img/queue.gif" alt=""> <B>{t}Search in table:{/t}</B>
+              <FORM METHOD="POST" ACTION="?m=maclist" NAME="maclist">
+              <SELECT SIZE="1" NAME="t" ONCHANGE="document.maclist.submit();">
+                   <OPTION value="0" {if $t==0}SELECTED{/if}>{t}suspect{/t}</OPTION>
+                   <OPTION value="1" {if $t==1}SELECTED{/if}>{t}correct{/t}</OPTION>
+                   <OPTION value="2" {if $t==2}SELECTED{/if}>{t}archived{/t}</OPTION>
+              </SELECT>
+              <IMG src="img/empty.gif" width="16" alt=""> <B>{t}Details{/t}:</B>
+              <INPUT CLASS="box light" TYPE="checkbox" value="1" name="details" {if
+$details}CHECKED{/if} ONCHANGE="document.maclist.submit();">
+              <INPUT TYPE="hidden" VALUE="1" NAME="change">
+              </FORM>
+              <BR>
+              <img src="img/port.gif" ALT="">&nbsp;<a href="?m=maclist&search=1&o=port{if
+$listdata.direction eq "asc" && $listdata.order eq
+"port"},desc{/if}">{t}Port:{/t}</A> {if $listdata.order eq "port"}<IMG
+SRC="img/{if $listdata.direction eq "desc"}asc{else}desc{/if}_order.gif"
+alt="">{/if}&nbsp;/&nbsp;
+              <img src="img/pin.gif" ALT="">&nbsp;<a href="?m=maclist&search=1&o=vlan{if
+$listdata.direction eq "asc" && $listdata.order eq
+"vlan"},desc{/if}">{t}VLAN:{/t}</A> {if $listdata.order eq "vlan"}<IMG
+SRC="img/{if $listdata.direction eq "desc"}asc{else}desc{/if}_order.gif"
+alt="">{/if}&nbsp;/&nbsp;
+              <img src="img/time.gif" ALT="">&nbsp;<a
+href="?m=maclist&search=1&o=lastonline{if $listdata.direction eq "asc" &&
+$listdata.order eq "lastonline"},desc{/if}">{t}Last online:{/t}</A> {if
+$listdata.order eq "lastonline"}<IMG SRC="img/{if $listdata.direction eq
+"desc"}asc{else}desc{/if}_order.gif" alt="">{/if}
+         </TD>
+         <TD align="right" width="1%" class="fbt" valign="top">
+              <a href="?m=maclist&search=1&o=id{if $listdata.direction eq "asc" &&
+$listdata.order eq "id"},desc{/if}">{t}ID:{/t}</A></B> {if $listdata.order eq
+"id"}<IMG SRC="img/{if $listdata.direction eq
+"desc"}asc{else}desc{/if}_order.gif" alt="">{/if}<BR>
+         </TD>
+         <TD width="1%" class="frightu" align="right" nowrap>
+              <B>{t a=$listdata.total|default:"0"}Total: $a{/t}</B><BR>
+              <img src="img/cmp.gif" ALT="">&nbsp;<a
+href="?m=maclist&search=1&page=1&o=compact">{t}Compact{/t}</A>{if
+$listdata.order eq "compact"}<IMG SRC="img/asc_order.gif" alt="">{/if}
+         </TD>
+    </TR>
+    {if $listdata.total != 0}
+    <TR CLASS="DARK">
+         <TD COLSPAN="3" CLASS="FALL">
+              <B>{t}Page:{/t}
+                   {if $page > 1}<A HREF="?m={$layout.module}&search=1&page={math equation="x
+- 1" x=$page}">&laquo;&laquo;&laquo;</A>{else}&laquo;&laquo;&laquo;{/if}
+                   {section name=pcnt loop=$maclist step=$pagelimit}
+                   {if $page eq $smarty.section.pcnt.rownum}[{else} <A
+HREF="?m={$layout.module}&search=1&page={$smarty.section.pcnt.rownum}">{/if}{$smarty.section.pcnt.rownum}{if
+$page eq $smarty.section.pcnt.rownum}]{else}</A> {/if}
+                   {/section}
+                   {if $page < $smarty.section.pcnt.rownum}<A
+HREF="?m={$layout.module}&search=1&page={math equation="x + 1"
+x=$page}">&raquo;&raquo;&raquo;</A>{else}&raquo;&raquo;&raquo;{/if}
+              </B>
+              {math equation="x + 1" x=$start assign=startx}
+              {if $start + $pagelimit > $listdata.total}
+                   {assign var=endx value=$listdata.total}{else}{math equation="x + y"
+x=$start y=$pagelimit assign=endx}
+              {/if}
+              ({t a=$startx b=$endx c=$listdata.total}records $a - $b of $c{/t})
+         </TD>
+    </TR>
+    {/if}
+    {cycle values="light,lucid" print=false}
+    {section name=maclist loop=$maclist start=$start max=$pagelimit}
+    <TR class="{cycle}" cellspacing="2" onmouseover="addClass(this, 'highlight')"
+onmouseout="removeClass(this, 'highlight')">
+         <TD onClick="return
+self.location.href='?m=macinfo&id={$maclist[maclist].id}&t={$t}';"
+class="fleft" valign="top">
+              <IMG src="img/mac.gif" alt="">&nbsp;<b>{$maclist[maclist].mac}</b>&nbsp;/&nbsp;
+              <IMG src="img/ip.gif" alt="" {tip a=$maclist[maclist].ip
+dynpopup='?m=netdevinfoshort&ip=$a'}>&nbsp;<b>{$maclist[maclist].ip}</b>
+              {if $details}
+                   {if $maclist[maclist].custnodeid}
+              &nbsp;/&nbsp;
+                        {if !$maclist[maclist].custnodetype}
+              <IMG src="img/customer.gif" alt="" {tip a=$maclist[maclist].custnodeid
+dynpopup='?m=customerinfoshort&id=$a'}>
+                        {else}
+              <IMG src="img/netdev_on.gif" alt="">
+                        {/if}
+              &nbsp;     {$maclist[maclist].custnodename}
+                   {/if}
+              {/if}<BR>
+              <IMG src="img/port.gif" alt="" {tip a=$maclist[maclist].ip
+b=$maclist[maclist].port dynpopup='?m=maclistshort&ip=$a&port=$b'}>&nbsp;port
+{$maclist[maclist].port}&nbsp;<b>/</b>
+              &nbsp;<IMG src="img/pin.gif" alt="" {tip a=$maclist[maclist].ip
+b=$maclist[maclist].vlan dynpopup='?m=maclistshort&ip=$a&vlan=$b'}>&nbsp;{if
+$maclist[maclist].vlan != 0}vlan
+{$maclist[maclist].vlan}{else}ND{/if}&nbsp;<b>/</b>
+              &nbsp;<IMG src="img/time.gif"
+alt="">&nbsp;{$maclist[maclist].lastonline|date_format:"%Y-%m-%d %H:%M:%S"}
+         </TD>
+         <TD valign="top" align="right" NOWRAP>
+              ({$maclist[maclist].id|string_format:"%06d"})<BR>
+         </TD>
+         <TD class="fright" align="right">
+              <NOBR>
+              <A href="?m=macdel&id={$maclist[maclist].id}&t={$t}" OnClick="return
+confirmLink(this, '{t
+a=$customerlist[customerlist].customername|escape:"javascript"|escape:"html"}Do you
+want to remove this MAC from table?{/t}');"><IMG src="img/delete.gif" alt="[
+{t}Delete{/t} ]"></A>
+              {if $t!=2}<A href="?m=macarch&id={$maclist[maclist].id}&t={$t}"><IMG
+src="img/docum.gif" alt=""></A>{/if}
+              {if !$t}<A href="?m=macjoin&id={$maclist[maclist].id}"><IMG
+src="img/remap.gif" alt=""></A>{/if}
+              <A href="?m=macinfo&id={$maclist[maclist].id}&t={$t}"><IMG
+src="img/info.gif" alt="[ {t}Info{/t} ]"></A></NOBR>
+         </TD>
+    </TR>
+    {sectionelse}
+    <TR>
+         <TD colspan="4" align="center" class="flr">
+              <p>&nbsp;</p>
+              <p><B>{t}No such MAC addresses matching search criteria.{/t}</B></p>
+              <p>&nbsp;</p>
+         </TD>
+    </TR>
+    {/section}
+  </TABLE> 
+{/block}
+
+{include file="footer.html"}

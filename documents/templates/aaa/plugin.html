@@ -1,13 +1,91 @@
 <TABLE cellpadding="3" WIDTH="100%">
-        <TR class="light">
+               <TR class="light">
                 <TD width="1%" class="fleftu">
-                        <IMG src="img/money.gif" alt="">
+			<IMG src="img/docum.gif" alt="">
                 </TD>
                 <TD width="1%" class="fbt" NOWRAP>
-                        <B>Taryfa:</B>
+                        <B>Umowa na:</B>
                 </TD>
                 <TD width="98%" class="frightu" NOWRAP>
-                        <INPUT type="checkbox" name="document[faktury]" value="1">&nbsp;Z fakturami (doliczone +5 z&#322;)<BR>
+                    <INPUT type="radio" NAME="document[period]" id="numowa36" value="36"><A HREF="javascript:checkElement('numowa36')">36 miesi&#281;cy</a><BR>
+                    <INPUT type="radio" NAME="document[period]" id="numowa24" value="24" CHECKED><A HREF="javascript:checkElement('numowa24')">24 miesi&#261;ce</a><BR>
+                    <INPUT type="radio" NAME="document[period]" id="numowa12" value="12"><A HREF="javascript:checkElement('numowa12')">12 miesi&#281;cy</a><BR>
+                    <INPUT type="radio" NAME="document[period]" id="numowa3" value="3"><A HREF="javascript:checkElement('numowa3')">3 miesi&#281;cy</a><BR>
+                    <INPUT type="radio" NAME="document[period]" id="numowa0" value="0"><A HREF="javascript:checkElement('numowa2')">na czas nieokre&#347;lony</a><BR>
                 </TD>
         </TR>
+        
+
+
+<TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/value.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Nazwa pakietu: </B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+               <div id="name">
+                    <INPUT type="text" name="document[pakiet]" /><BR>
+         </div>
+            </TD>
+       </TR> 
+<TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/value.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Abonament: </B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+               <div id="name">
+                    <INPUT type="text" name="document[abonament]" /><BR>
+         </div>
+            </TD>
+       </TR> 
+       </TR> 
+<TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/value.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Oplata instalacyjna: </B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+               <div id="name">
+                    <INPUT type="text" name="document[abonament]" /><BR>
+         </div>
+            </TD>
+       </TR> 
+
+
+<TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/value.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Przyznana Ulga: </B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+               <div id="name">
+                    <INPUT type="text" name="document[Ulga]" /><BR>
+         </div>
+            </TD>
+       </TR> 
+
+
+<TR class="light">
+               <TD width="1%" class="fleftu">
+              <IMG src="img/value.gif" alt="">
+               </TD>
+               <TD width="1%" class="fbt" NOWRAP>
+                       <B>Minimalny okres lda promocji: </B>
+               </TD>
+               <TD width="98%" class="frightu" NOWRAP>
+               <div id="name">
+                    <INPUT type="text" name="document[Ulga]" /><BR>
+         </div>
+            </TD>
+       </TR> 
+
 </TABLE>

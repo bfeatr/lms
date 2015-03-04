@@ -1,0 +1,101 @@
+{extends file="layout.html"}
+{block name=title}::: LMS :{$layout.pagetitle|striphtml} :::{/block}
+{block name=module_content}
+<TABLE WIDTH="100%" CELLPADDING="3" class="lmsbox">
+	<TR CLASS="DARK">
+		<TD WIDTH="1%" CLASS="FLEFTU">
+			<IMG SRC="img/mac.gif" ALT="">
+		</TD>
+		<TD WIDTH="99%" CLASS="FRIGHTU" COLSPAN="2">
+			<B>{$deviceinfo.model} ({$deviceinfo.id|string_format:"%04d"})</B>
+		</TD>
+	</TR>
+        {if $deviceinfo.vendor}
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/producer.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%">
+		        <B>{t}Vendor{/t}:</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+		        {$deviceinfo.vendor}
+		</TD>
+	</TR>
+	{/if}
+	{if $deviceinfo.buydate}
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/time.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%">
+		        <B>{t}Buy date{/t}:</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+		        {$deviceinfo.buydate}
+		</TD>
+	</TR>
+	{/if}
+	{if $deviceinfo.serialnumber}
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/serialnumber.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+		        <B>{t}Serial number:{/t}</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+		        {$deviceinfo.serialnumber}
+		</TD>
+	</TR>
+	{/if}
+	{if $deviceinfo.price}
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/guarantee.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+		        <B>{t}Price{/t}:</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+		        {$deviceinfo.price}
+		</TD>
+	</TR>
+	{/if}
+	{if $deviceinfo.customerid}
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/customer.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+		        <B>{t}Customer:{/t}</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+		        <A HREF="?m=customerinfo&id={$customer.id}">{$customer.customername} ({$customer.id|string_format:"%04d"})</a>
+		</TD>
+	</TR>
+	{/if}
+        {if $deviceinfo.info}
+        <TR CLASS="LIGHT">
+                <TD WIDTH="1%" CLASS="FLEFT">
+                        <IMG SRC="img/netdev_description.gif" ALT="">
+                </TD>
+                <TD WIDTH="99%" CLASS="FRIGHT" COLSPAN="2">
+                        <TABLE WIDTH="100%" CELLPADDING="5">
+                                <TR>
+                                        <TD class="fall superlight">
+						{$deviceinfo.info|escape|replace:"\n":"<BR>"}
+                                        </TD>
+                                </TR>
+                        </TABLE>
+                </TD>
+        </TR>
+        {/if}
+	<TR CLASS="LIGHT">
+		<TD WIDTH="100%" COLSPAN="3" CLASS="FBOTTOMU" ALIGN="RIGHT">
+			<A href="?m=deviceedit&id={$deviceinfo.id}" ACCESSKEY="E">{t}Edit{/t} <IMG src="img/edit.gif" ALT="[ {t}Edit{/t} ]"></A> <A href="?m=devicedel&id={$deviceinfo.id}" OnClick="return confirmLink(this, '{t a=$deviceinfo.nazwa}Are you sure, you want to remove device \'$a\' from database?{/t}');">{t}Delete{/t} <img src="img/delete.gif" ALT=""></A>
+		</TD>
+	</TR>
+</TABLE>
+{/block}
+{include file="footer.html"}

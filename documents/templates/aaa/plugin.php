@@ -1,9 +1,9 @@
 <?php
 
 /*
- * LMS version 1.11.9 Moloc
+ * LMS version 1.11-git
  *
- *  (C) Copyright 2001-2009 LMS Developers
+ *  (C) Copyright 2001-2013 LMS Developers
  *
  *  Please, see the doc/AUTHORS for more information about authors!
  *
@@ -21,24 +21,27 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
  *  USA.
  *
- *  $Id: plugin.php,v 1.8 2009/01/13 07:45:33 alec Exp $
+ *  $Id$
  */
 
 global $SMARTY;
 
-/* short example of errors handling
-
 if(isset($_POST['document']))
 {
+/* short example of errors handling
+
 	$error['notes'] = 'Error';
 	$result = 'Error';
 	return;
+*/
+}
+else // AJAX request
+{
+    // Variables accessible in AJAX request
+    // $customer    - selected customer ID
+    // $JSResponse  - xajaxResponse object
 }
 
-*/
-
-// Notice: $customer consist selected customer ID
-
-//$result = $SMARTY->fetch(DOC_DIR.'/templates/'.$engine['name'].'/plugin.html');
+$result = $SMARTY->fetch(DOC_DIR.'/templates/'.$engine['name'].'/plugin.html');
 
 ?>

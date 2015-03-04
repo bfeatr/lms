@@ -1,0 +1,61 @@
+{include file="clearheader.html"}
+<!--// $Id: printmaclist.html,v 1.0 2010/02/12 00:00:00 emers Exp $ //-->
+<TABLE WIDTH="100%">
+	<TR>
+		<TD WIDTH="99%" VALIGN="TOP">
+			<H1>{$layout.pagetitle}</H1>
+		</TD>
+		<TD WIDTH="1%" ALIGN="RIGHT" NOWRAP>
+			LMS {$layout.lmsv} @ {$layout.hostname}<BR>
+			{$smarty.now|date_format:"%A, %x"}<BR>
+			{t 0=$layout.logname}Prepared by: $0{/t}
+		</TD>
+	</TR>
+</TABLE>
+<TABLE WIDTH="640" CELLPADDING="3" BORDER="1" ALIGN="CENTER">
+	<TR>
+		<TD ALIGN="CENTER" CLASS="HEAD">
+			{t}No.{/t}
+		</TD>
+                <TD CLASS="HEAD" ALIGN="CENTER">
+                        {t}Switchs IP address:{/t}
+                </TD>
+                <TD CLASS="HEAD" ALIGN="CENTER">
+                        {t}Port{/t}
+                </TD>
+                <TD CLASS="HEAD" ALIGN="CENTER">
+                        {t}VLAN{/t}
+                </TD>
+		<TD CLASS="HEAD">
+			<B>{t}MAC address:{/t}</B><BR>
+			{t}Last online:{/t}
+		</TD>
+		<TD CLASS="HEAD" VALIGN="TOP" ALIGN="RIGHT">
+			{t}Customer{/t}/{t}Switch{/t}
+		</TD>
+	</TR>
+	{cycle values="white,grey" print=false}
+	{section name=maclist loop=$maclist}{if $maclist[maclist].id}
+	<TR class="{cycle}">
+		<TD ALIGN="CENTER">
+			{counter}
+		</TD>
+		<TD ALIGN="CENTER">
+			{$maclist[maclist].ip}
+		</TD>
+		<TD ALIGN="CENTER">
+			{$maclist[maclist].port}
+		</TD>
+		<TD ALIGN="CENTER">
+			{$maclist[maclist].vlan}
+		</TD>
+		<TD>
+			<B>{$maclist[maclist].mac}</B><BR>
+			{$maclist[maclist].lastonline}
+		</TD>
+		<TD ALIGN="RIGHT">
+                       {if $maclist[maclist].custnodeid}&nbsp;{$maclist[maclist].custnodename}<BR>{$maclist[maclist].custnodeaddr}{/if}
+		</TD>
+	</TR>
+	{/if}{/section}
+</TABLE>

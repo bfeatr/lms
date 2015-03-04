@@ -1,0 +1,125 @@
+{extends file="layout.html"}
+{block name=title}::: LMS :{$layout.pagetitle|striphtml} :::{/block}
+{block name=module_content}
+{include file="calendar_js.html"}
+<SCRIPT language="javaScript">
+{literal}
+<!-- 
+	function PrintList()
+	{
+		document.macsearch.action = "?m=macsearch&search=1&print=1";
+		document.macsearch.target = "_BLANK";
+		document.macsearch.submit();
+	}
+
+	function Search()
+	{
+		document.macsearch.action = "?m=macsearch&search=1";
+		document.macsearch.target = "";
+		document.macsearch.submit();
+	}
+
+window.onload = function() {
+document.forms['macsearch'].elements['search[mac]'].focus();
+}
+//-->	
+
+{/literal}
+</SCRIPT>
+<H1>{$layout.pagetitle}</H1>
+<P><FORM METHOD="POST" ACTION="?m=macsearch&search=1" NAME="macsearch">
+<INPUT type="submit" class="hiddenbtn">
+<TABLE WIDTH="100%" CELLPADDING="3" class="lmsbox">
+	<TR CLASS="DARK">
+		<TD CLASS="FALL" COLSPAN="2">
+					</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD CLASS="fleft" WIDTH="1%" NOWRAP>
+			<IMG src="img/mac.gif" alt=""> <B>{t}MAC address:{/t}</B>
+		</TD>
+		<TD CLASS="fright" WIDTH="99%">
+			<INPUT TYPE="text" NAME="search[mac]" VALUE="{$search.mac}">
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD CLASS="fleft" WIDTH="1%" NOWRAP>
+			<IMG src="img/ip.gif" alt=""> <B>{t}Switchs IP address:{/t}</B>
+		</TD>
+		<TD CLASS="fright" WIDTH="99%">
+			<INPUT TYPE="text" NAME="search[ip]" VALUE="{$search.ip}">
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD CLASS="fleft" WIDTH="1%" NOWRAP>
+			<IMG src="img/port.gif" alt=""> <B>{t}Switchs port:{/t}</B>
+		</TD>
+		<TD CLASS="fright" WIDTH="99%">
+			<INPUT TYPE="text" NAME="search[port]" VALUE="{$search.port}">
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD CLASS="fleft" WIDTH="1%" NOWRAP>
+			<IMG src="img/pin.gif" alt=""> <B>{t}VLAN:{/t}</B>
+		</TD>
+		<TD CLASS="fright" WIDTH="99%">
+			<INPUT TYPE="text" NAME="search[vlan]" VALUE="{$search.vlan}">
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD CLASS="fleft" WIDTH="1%" NOWRAP>
+			<IMG src="img/calendar.gif" alt=""> <B>{t}Range:{/t}</B>
+		</TD>
+		<TD CLASS="fright" WIDTH="99%">
+			{t}from:{/t}&nbsp;<INPUT TYPE="text" SIZE="13" NAME="search[from]" VALUE="{$search.from}" OnClick="javascript:calfrom.popup();" {tip text="Enter date in 'yyyy/mm/dd' format or click to choose it from calendar"}>
+			{t}to:{/t}&nbsp;<INPUT TYPE="text" SIZE="13" NAME="search[to]" VALUE="{$search.to}" onClick="calto.popup();" {tip text="Enter date in 'yyyy/mm/dd' format or click to choose it from calendar"}>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD CLASS="fleft" WIDTH="1%" NOWRAP>
+			<IMG src="img/empty.gif" width="16" alt=""> <B>{t}Qualification operator:{/t}</B>
+		</TD>
+		<TD CLASS="fright" WIDTH="99%">
+			<INPUT class="radio light" type="radio" value="AND" name="k" CHECKED> {t}AND{/t}
+			<INPUT class="radio light" type="radio" value="OR" name="k"> {t}OR{/t}
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD CLASS="fleft" WIDTH="1%" NOWRAP>
+			<IMG src="img/empty.gif" width="16" alt=""> <B>{t}Details{/t}:</B>
+		</TD>
+		<TD CLASS="fright" WIDTH="99%">
+			<INPUT CLASS="box light" TYPE="checkbox" value="1" name="details" CHECKED>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD CLASS="fleft" WIDTH="1%" NOWRAP>
+			<IMG src="img/queue.gif" alt=""> <B>{t}Search in table:{/t}</B>
+		</TD>
+		<TD CLASS="fright" WIDTH="99%">
+			<SELECT SIZE="1" NAME="t">
+				<OPTION value="0" SELECTED>{t}suspect{/t}</OPTION>
+				<OPTION value="1">{t}correct{/t}</OPTION>
+				<OPTION value="2">{t}archived{/t}</OPTION>
+			</SELECT>
+		</TD>
+	</TR>
+	<TR CLASS="light">
+		<TD CLASS="fbottomu" WIDTH="100%" COLSPAN="2" ALIGN="right">
+			<A ACCESSKEY="S" href="javascript:Search();">{t}Search{/t} <IMG SRC="img/search.gif" alt=""></A>&nbsp;
+			<A href="javascript:PrintList();">{t}Print{/t} <IMG SRC="img/print.gif" alt=""></A>
+		</TD>	
+	</TR>
+</TABLE>
+</FORM>
+</P>
+{/block}
+<SCRIPT language="javaScript">
+<!--
+var calfrom = new calendar(document.macsearch.elements['search[from]']);
+var calto = new calendar(document.macsearch.elements['search[to]']);
+
+document.forms['macsearch'].elements['search[mac]'].focus();
+//-->
+</SCRIPT>
+{include file="footer.html"}			

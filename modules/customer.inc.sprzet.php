@@ -41,6 +41,8 @@ $expired = !empty($_GET['expired']) ? true : false;
 $assignments = $LMS->GetCustomerAssignments($customerid, !empty($expired) ? $expired : NULL);
 $customergroups = $LMS->CustomergroupGetForCustomer($customerid);
 $othercustomergroups = $LMS->GetGroupNamesWithoutCustomer($customerid);
+$othercustomersprzet = $LMS->GetSprzetListU();
+$customersprzet = $LMS->GetSprzetListC($customerid);
 $balancelist = $LMS->GetCustomerBalanceList($customerid);
 $customervoipaccounts = $LMS->GetCustomerVoipAccounts($customerid);
 $documents = $LMS->GetDocuments($customerid, 10);
@@ -104,11 +106,7 @@ $SMARTY->assign(array(
 	'comment' => $SESSION->get('addbc'),
 	'sourceid' => $SESSION->get('addsource'),
 ));
-$othercustomersprzet = $LMS->GetDeviceListU();
-$customersprzet = $LMS->GetDeviceListC($customerid);
 
-$SMARTY->assignByRef('customersprzeta', $customersprzet);
-$SMARTY->assignByRef('othercustomersprzet', $othercustomersprzet);
 $SMARTY->assign('sourcelist', $DB->GetAll('SELECT id, name FROM cashsources ORDER BY name'));
 $SMARTY->assignByRef('customernodes', $customernodes);
 $SMARTY->assignByRef('assignments', $assignments);

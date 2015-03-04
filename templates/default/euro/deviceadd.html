@@ -1,0 +1,124 @@
+{extends file="layout.html"}
+{block name=title}::: LMS :{$layout.pagetitle|striphtml} :::{/block}
+{block name=module_content}
+{$xajax}
+<P><FORM NAME="deviceadd" METHOD="POST" ACTION="?m=deviceadd">
+<INPUT type="submit" class="hiddenbtn">
+<TABLE WIDTH="100%" CELLPADDING="3" class="lmsbox">
+	<TR CLASS="DARK">
+		<TD WIDTH="1%" CLASS="FLEFTU">
+			<IMG SRC="img/mac.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" CLASS="FBT">
+			<B>{t}Name:{/t}</B>
+		<TD WIDTH="98%" CLASS="FRIGHTU">
+			<INPUT TYPE="TEXT" NAME="device[model]" VALUE="{$device.model}" SIZE="80" MAXLENGTH="255" {tip trigger="model" text="Enter device name" bold=1}> lub 
+			<SELECT SIZE="1" NAME="device[models]" {tip text="Enter device model"} trigger="model">
+			    <OPTION VALUE="0" SELECTED>-----</OPTION>
+			{section name=models loop=$models}
+			    <OPTION VALUE="{$models[models].id}">{$models[models].model|truncate:50:" ..."}</OPTION>
+
+			{/section}
+			</SELECT>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/producer.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Vendor{/t}:</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+			<INPUT TYPE="TEXT" NAME="device[vendor]" VALUE="{$device.vendor}" SIZE="97" {tip text="Enter vendor (optional)"}> lub
+			<SELECT SIZE="1" NAME="device[vendors]" {tip text="Enter vendor (optional)"}>
+			    <OPTION VALUE="0" SELECTED>-----</OPTION>
+			{section name=vendors loop=$vendors}
+			    <OPTION VALUE="{$vendors[vendors].id}">{$vendors[vendors].vendor|truncate:50:" ..."}</OPTION>
+
+			{/section}
+			</SELECT>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/time.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Buy date{/t}:</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+			<INPUT TYPE="TEXT" NAME="device[buydate]" VALUE="{if $device.buydate}{$device.buydate}{else}{$smarty.now|date_format:"%Y-%m-%d"}{/if}" {tip text="Enter buy date (optional)"}>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/serialnumber.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Serial number:{/t}</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+			<INPUT TYPE="TEXT" NAME="device[serialnumber]" VALUE="{$device.serialnumber}" {tip text="Enter device serial number (optional)" trigger="serialnumber"}>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/payment.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Price{/t}:</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+			<INPUT TYPE="TEXT" NAME="device[price]" VALUE="{$device.price}" {tip text="Enter price" trigger="price"}>
+		</TD>
+	</TR>
+        <TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/customer.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Customer:{/t}</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+                        <SELECT SIZE="1" NAME="device[customer]" onChange="document.forms['deviceadd'].elements['device[customerid]'].value=document.forms['deviceadd'].elements['device[customer]'].value">
+                                <OPTION VALUE="0">{t}... select customer ...{/t}</OPTION>
+                                {foreach from=$customers item=c}
+                                <OPTION VALUE="{$c.id}"{if $c.id eq $customer.id} SELECTED{/if}>{$c.customername|truncate:"60":"..."} ({$c.id|string_format:"%04d"})</OPTION>
+                                {/foreach}
+                        </SELECT>
+                        {t}or Customer ID:{/t}
+                        <INPUT TYPE="TEXT" NAME="device[customerid]" VALUE="{if $customer.id}{$customer.id}{/if}" SIZE="5" onChange="document.forms['deviceadd'].elements['device[customer]'].value=document.forms['deviceadd'].elements['device[customerid]'].value">
+                        <a href="javascript: void(0);" onClick="return customerchoosewin(document.forms['deviceadd'].elements['device[customerid]']);" {tip text="Click to search customer"}>{t}Search{/t}&nbsp;&raquo;&raquo;&raquo;</A>
+                </TD>
+        </TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="1%" CLASS="FLEFT">
+			<IMG SRC="img/netdev_description.gif" ALT="">
+		</TD>
+		<TD WIDTH="1%" NOWRAP>
+			<B>{t}Description:{/t}</B>
+		</TD>
+		<TD WIDTH="98%" CLASS="FRIGHT">
+			<TEXTAREA NAME="device[info]" COLS="80" ROWS="10" {tip text="Enter additional information (optional)"}>{$device.info}</TEXTAREA>
+		</TD>
+	</TR>
+	<TR CLASS="LIGHT">
+		<TD WIDTH="100%" CLASS="FBOTTOMU" COLSPAN="3" ALIGN="RIGHT">
+			<A HREF="javascript:document.deviceadd.submit();" ACCESSKEY="s">{t}Submit{/t} <IMG SRC="img/save.gif" alt=""></A>
+			<A HREF="?m=devicelist">{t}Cancel{/t} <IMG SRC="img/cancel.gif" alt=""></A><br>
+			<INPUT type="checkbox" name="device[reuse]" id="reuse" value="ON" id="reuse" {if $device.reuse}checked{/if}>
+			<A HREF="javascript:checkElement('reuse')"> {t}Display this form again, when this group is saved{/t}</A>
+			                        
+		</TD>
+	</TR>	
+</TABLE>
+</FORM></P>
+{/block}
+
+<SCRIPT language="javaScript">
+<!--
+document.forms['deviceadd'].elements['device[model]'].focus();
+//-->
+</SCRIPT>
+{include file="footer.html"}

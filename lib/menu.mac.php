@@ -255,27 +255,6 @@ $menu = array(
 				),
 			),
 
-                'maclist' => array(
-                        'name' => trans('MAC tables'),
-                        'img' =>'isource.gif',
-                        'link' =>'?m=maclist',
-                        'tip' => trans('Record of MACs'),
-                        'accesskey' =>'p',
-                        'prio' => '16',
-                        'submenu' => array(
-                                array(
-                                        'name' => trans('List'),
-                                        'link' => '?m=maclist',
-                                        'tip' => trans('Record of MACs'),
-                                ),
-                                array(
-                                        'name' => trans('Search'),
-                                        'link' => '?m=macsearch',
-                                        'tip' => trans('Search in mac table'),
-                                ),
-                        ),
-                ),
-
 		'networks' => array(
 			'name' => trans('IP Networks'),
 			'img' =>'network.gif',
@@ -299,32 +278,26 @@ $menu = array(
 			),
 		),
 
-              'device' => array(
-			'name' => trans('Customer devices'),
-			'img' =>'mac.gif',
-			'link' =>'?m=device',
-			'tip' => trans('Customer devices'),
-			'accesskey' =>'p',
-			'prio' => '16',
-			'submenu' => array(
-				array(
-					'name' => trans('List'),
-					'link' => '?m=devicelist',
-					'tip' => trans('Customer devices list'),
-				),
-				array(
-					'name' => trans('New Device'),
-					'link' => '?m=deviceadd',
-					'tip' => trans('Add customer device'),
-				),
-				array(
-					'name' => trans('Search'),
-					'link' => '?m=searchdevice',
-					'tip' => trans('Search customer device'),
-				),
-
-			),
-		),
+               'sprzet' => array(
+                        'name' => trans('sprzetklientow'),
+                        'img' =>'mac.gif',
+                        'link' =>'?m=sprzet',
+                        'tip' => trans('sprzetklientowopis'),
+                        'accesskey' =>'p',
+                        'prio' => '16',
+                        'submenu' => array(
+                                array(
+                                        'name' => trans('List'),
+                                        'link' => '?m=sprzetlista',
+                                        'tip' => trans('sprzetklientowlista'),
+                                ),
+                                array(
+                                        'name' => trans('New Device'),
+                                        'link' => '?m=sprzetdodaj',
+                                        'tip' => trans('sprzetklientowdodaj'),
+                                ),
+                        ),
+                ),
 
 		'finances' => array(
 			'name' => trans('Finances'),

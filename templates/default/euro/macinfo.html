@@ -1,0 +1,94 @@
+{extends file="layout.html"}
+{block name=title}::: LMS :{$layout.pagetitle|striphtml} :::{/block}
+{block name=module_content}
+
+<TABLE WIDTH="100%" CELLPADDING="3" class="lmsbox">
+	<TR CLASS="DARK">
+         <TD WIDTH="1%" CLASS="FLEFTU">
+              <IMG SRC="img/mac.gif" ALT="">
+         </TD>
+         <TD WIDTH="99%" CLASS="FRIGHTU" COLSPAN="2">
+              <B>{$macinfo.mac}</B>&nbsp;&nbsp;<a
+href="?m=maclistinfo&mac={$macinfo.mac}">&raquo;&raquo;&raquo;</a>
+         </TD>
+    </TR>
+    <TR CLASS="LIGHT">
+         <TD WIDTH="1%" CLASS="FLEFT">
+              <IMG SRC="img/ip.gif" ALT="">
+         </TD>
+         <TD WIDTH="1%">
+              <B>{t}Switchs IP address:{/t}</B>
+         </TD>
+         <TD WIDTH="98%" CLASS="FRIGHT">
+              <a href="http://{$macinfo.ip}/">{$macinfo.ip}</a>&nbsp;{if
+$netdevinfo.name}- {$netdevinfo.name}&nbsp;{if
+$netdevinfo.producer}({$netdevinfo.producer}){/if}{/if}&nbsp;&nbsp;<a
+href="?m=netdevinfo&id={$netdevinfo.id}">&raquo;&raquo;&raquo;</a>
+         </TD>
+    </TR>
+    <TR CLASS="LIGHT">
+         <TD WIDTH="1%" CLASS="FLEFT">
+              <IMG SRC="img/port.gif" ALT="">
+         </TD>
+         <TD WIDTH="1%">
+              <B>{t}Port:{/t}</B>
+         </TD>
+         <TD WIDTH="98%" CLASS="FRIGHT">
+              {$macinfo.port}&nbsp;&nbsp;<a
+href="?m=maclistinfo&ip={$macinfo.ip}&port={$macinfo.port}">&raquo;&raquo;&raquo;</a>
+         </TD>
+    </TR>
+    <TR CLASS="LIGHT">
+         <TD WIDTH="1%" CLASS="FLEFT">
+              <IMG SRC="img/pin.gif" ALT="">
+         </TD>
+         <TD WIDTH="1%" NOWRAP>
+              <B>{t}VLAN:{/t}</B>
+         </TD>
+         <TD WIDTH="98%" CLASS="FRIGHT">
+              {if $macinfo.vlan}{$macinfo.vlan}{else}N/D{/if}&nbsp;&nbsp;<a
+href="?m=maclistinfo&ip={$macinfo.ip}&vlan={$macinfo.vlan}">&raquo;&raquo;&raquo;</a>
+         </TD>
+    </TR>
+    <TR CLASS="LIGHT">
+         <TD WIDTH="1%" CLASS="FLEFT">
+              <IMG SRC="img/time.gif" ALT="">
+         </TD>
+         <TD WIDTH="1%" NOWRAP>
+              <B>{t}Last online:{/t}</B>
+         </TD>
+         <TD WIDTH="98%" CLASS="FRIGHT">
+              {$macinfo.lastonline} unixtime poprawic
+         </TD>
+    </TR>
+    <TR CLASS="LIGHT">
+         <TD WIDTH="1%" CLASS="FLEFT">
+              <IMG SRC="img/customer.gif" ALT="">
+         </TD>
+         <TD WIDTH="1%" NOWRAP>
+              <B>{t}Customer{/t}/{t}Switch{/t}:</B>
+         </TD>
+         <TD WIDTH="98%" CLASS="FRIGHT">
+              {if $linkto == 2}{t}MAC address is not assigned{/t}{/if}
+              {if $linkto == 1}<IMG src="img/netdev_on.gif" alt="">&nbsp;<A
+HREF="?m=netdevinfo&id={$macinfo.nodeid}">{$linkname}</a>{/if}
+              {if $linkto == 0}<IMG src="img/customer.gif" alt="" {tip
+a=$macinfo.customerid dynpopup='?m=customerinfoshort&id=$a'}>&nbsp;<A
+HREF="?m=customerinfo&id={$macinfo.customerid}">{$linkname}</a><br><IMG
+src="img/node.gif" alt="" {tip a=$macinfo.customerid
+dynpopup='?m=nodelistshort&id=$a'}>{/if}
+         </TD>
+    </TR>
+    <TR CLASS="LIGHT">
+         <TD WIDTH="100%" COLSPAN="3" CLASS="FBOTTOMU" ALIGN="RIGHT">
+              <A href="?m=macjoin&id={$macinfo.id}" ACCESSKEY="E">{t}Enter{/t} <IMG
+src="img/remap.gif" ALT=""></A>
+              <A href="?m=macdel&id={$macinfo.id}&t={$macinfo.t}" OnClick="return
+confirmLink(this, '{t}Do you want to remove this MAC from
+table?{/t}');">{t}Delete{/t} <img src="img/delete.gif" ALT=""></A>
+         </TD>
+    </TR> </TABLE>
+{/block}
+
+{include file="footer.html"}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        

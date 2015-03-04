@@ -1,9 +1,9 @@
 <?php
 
 /*
- * LMS version 1.11.9 Moloc
+ * LMS version 1.11-git
  *
- *  (C) Copyright 2001-2009 LMS Developers
+ *  (C) Copyright 2001-2013 LMS Developers
  *
  *  Please, see the doc/AUTHORS for more information about authors!
  *
@@ -21,7 +21,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
  *  USA.
  *
- *  $Id: engine.php,v 1.10 2009/01/13 07:45:33 alec Exp $
+ *  $Id$
  */
 
 $cid = $document['customerid'];
@@ -44,7 +44,8 @@ if($customeraccounts = $DB->GetAll('SELECT passwd.*, domains.name AS domain
 				WHERE passwd.ownerid = ? ORDER BY login', array($cid)))
 	foreach($customeraccounts as $idx => $account)
 	{
-		$customeraccounts[$idx]['aliases'] = $DB->GetCol('SELECT login FROM aliases WHERE accountid=?', array($account['id']));
+		$customeraccounts[$idx]['aliases'] = $DB->GetCol('SELECT login FROM aliases a 
+			LEFT JOIN aliasassignments aa ON a.id = aa.aliasid WHERE aa.accountid=?', array($account['id']));
 		/*// create random password
 		$pass = '';
 		for ($i = 0; $i < 8; $i++)

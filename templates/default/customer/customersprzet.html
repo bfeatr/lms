@@ -1,0 +1,66 @@
+<!--// $Id: customersprzet.html,v 1.0 2010/12/02 00:00:00 emers Exp $ //-->
+<TABLE WIDTH="100%" CELLPADDING="3">
+	<TR CLASS="DARK" onclick="showOrHide('sprzetpanel');">
+		<TD class="fall">
+			<IMG src="img/mac.gif" alt="">
+			<B><A name="groups">{t}sprzetklientow{/t}:</A></B> 
+		</TD>
+	</TR>
+	<TR id="sprzetpanel" style="display:none;">
+		<TD WIDTH="100%" class="fall">
+			<TABLE cellpadding="5" cellspacing="0" WIDTH="100%">
+				<TR class="dark">
+					<TD WIDTH="40%" NOWRAP class="fleftu"><B>{t}urzadzenie{/t}:</B></TD>
+					<TD WIDTH="10%" NOWRAP class="fbt" COLSPAN="2">{t}numerseryjny{/t}:</TD>
+					<TD WIDTH="10%" NOWRAP class="fbt">{t}datazakupu{/t}:</TD>
+					<TD WIDTH="40%" NOWRAP class="fbt">{t}dostawca{/t}:</TD>
+					<TD WIDTH="1%" class="frightu">&nbsp;</TD>
+				</TR>
+				{cycle values="light,lucid" print=false}
+				{foreach from=$customersprzet item=customersprzet}
+				<TR class="{cycle}" onmouseover="addClass(this, 'highlight')" onmouseout="removeClass(this, 'highlight')">
+					<TD WIDTH="40%" NOWRAP><B><A HREF="?m=sprzetinfo&id={$customersprzet.id}">{$customersprzet.nazwa}</A></B></TD>
+					<TD WIDTH="10%" NOWRAP COLSPAN="2">{$customersprzet.numerseryjny}</TD>
+					<TD WIDTH="10%" NOWRAP>{$customersprzet.datazakupu}</TD>
+					<TD WIDTH="40%" NOWRAP>{$customersprzet.dostawca}</TD>
+					<TD WIDTH="1%" ALIGN="RIGHT" NOWRAP><A onClick="return confirmLink(this, '{t}czyusunacsprzet{/t}')" HREF="?m=customersprzetdel&customersprzetid={$customersprzet.id}&id={$customerinfo.id}" {tip text="usunsprzet"}>{t}Delete{/t} <IMG SRC="img/delete.gif" ALT=""></A></TD>
+				</TR>
+				{foreachelse}
+				<TR>
+					<TD align="center" WIDTH="100%" colspan="5">
+						<p>&nbsp;</p>
+						<p><B>{t}brakurzadzen{/t}</B></p>
+						<p>&nbsp;</p>
+					</TD>
+				</TR>
+				{/foreach}
+				<FORM METHOD="POST" NAME="customersprzetassignment" ACTION="?m=customersprzetadd&id={$customerinfo.id}">
+				<INPUT type="submit" class="hiddenbtn">
+				<TR class="light">
+					<TD COLSPAN="5" CLASS="ftop">
+						<B>{t}Add:{/t}</B>
+						<SELECT SIZE="1" NAME="customersprzetid" {tip text="wybierz nazwe urzadzenia"}>
+							<OPTION VALUE="0">{t}...wybierz urzadzenie...{/t}</OPTION>
+							{section name=t loop=$othercustomersprzet}
+							<OPTION VALUE="{$othercustomersprzet[t].id}">{$othercustomersprzet[t].nazwa} {if $othercustomersprzet[t].numerseryjny}(S/N: {$othercustomersprzet[t].numerseryjny}, {$othercustomersprzet[t].datazakupu}){/if}</OPTION>
+							{/section}
+						</SELECT>
+						<NOBR>
+					</TD>
+					<TD ALIGN="RIGHT" CLASS="ftop" ROWSPAN="2" NOWRAP>
+						<A HREF="javascript:document.customersprzetassignment.submit()" {tip text="dodajsprzet"}>{t}Add{/t} <IMG SRC="img/save.gif" alt=""></A>
+					</TD>
+				</TR>
+				</FORM>
+			</TABLE>
+		</TD>
+	</TR>
+</TABLE>
+{literal}<SCRIPT>
+<!--
+	if(getCookie('sprzetpanel')=='1')
+	{
+		document.getElementById('sprzetpanel').style.display = '';
+	}
+//-->
+</SCRIPT>{/literal}
