@@ -79,18 +79,6 @@
                location.href = '?m=sendemail&id={$customerinfo.id}';
 {literal}
        }
-       function sendemail2013()
-       {
-{/literal}
-               location.href = '?m=sendemail2013&id={$customerinfo.id}';
-{literal}
-       }
-       function sendemail2014()
-       {
-{/literal}
-               location.href = '?m=sendemail2014&id={$customerinfo.id}';
-{literal}
-       }
 function sendemail2015()
        {
 {/literal}
@@ -196,7 +184,9 @@ function sendemail2015()
 			<IMG SRC="img/mail.gif" ALT="">
 		</TD>
 		<TD WIDTH="99%">
-			<A HREF="mailto:{$customerinfo.email}">{$customerinfo.email}</A>
+			<A HREF="mailto:{$customerinfo.email}">{$customerinfo.email} | </A>
+			<A HREF="javascript:sendemail2015()"> Wyslij faktury za 2015</a>
+
 		</TD>
 	</TR>
 {/if}
