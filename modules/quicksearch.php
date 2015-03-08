@@ -74,6 +74,10 @@ if(!empty($_POST['qscustomer'])) {
 } elseif(!empty($_POST['qsdocument'])) {
 	$mode = 'document'; 
 	$search = urldecode(trim($_POST['qsdocument']));
+} elseif(!empty($_POST['qsphone'])) {
+	$mode = 'phone'; 
+	$search = urldecode(trim($_POST['phone']));
+	$search=preg_replace('/[^0-9]/', '', $search);
 } elseif(!empty($_GET['what'])) {
 	$search = urldecode(trim($_GET['what']));
 	$mode = $_GET['mode'];
@@ -86,17 +90,22 @@ switch($mode)
 	case 'customer':
 		if(isset($_GET['ajax'])) // support for AutoSuggest
 		{
-			$candidates = $DB->GetAll("SELECT id, email, address, post_name, post_address, deleted,
-			    ".$DB->Concat('UPPER(lastname)',"' '",'name')." AS username
-				FROM customersview
-				WHERE ".(preg_match('/^[0-9]+$/', $search) ? 'id = '.intval($search).' OR ' : '')."
-					LOWER(".$DB->Concat('lastname',"' '",'name').") ?LIKE? LOWER($sql_search)
-					OR LOWER(address) ?LIKE? LOWER($sql_search)
-					OR LOWER(post_name) ?LIKE? LOWER($sql_search)
-					OR LOWER(post_address) ?LIKE? LOWER($sql_search)
-					OR LOWER(email) ?LIKE? LOWER($sql_search)
-				ORDER by deleted, username, email, address
-				LIMIT 15");
+
+			$candidates = $DB->GetAll("SELECT a.id, a.email, a.address, a.post_name, a.post_address, a.deleted, b.phone,
+			    ".$DB->Concat('UPPER(a.lastname)',"' '",'a.name')." AS username
+				FROM customersview a left join customercontacts b on a.id=b.customerid
+				WHERE ".(preg_match('/^[0-9]+$/', $search) ? 'a.id = '.intval($search).' OR ' : '')."
+					LOWER(".$DB->Concat('a.lastname',"' '",'a.name').") ?LIKE? LOWER($sql_search)
+					OR LOWER(a.address) ?LIKE? LOWER($sql_search)
+					OR LOWER(a.post_name) ?LIKE? LOWER($sql_search)
+					OR LOWER(a.post_address) ?LIKE? LOWER($sql_search)
+					OR LOWER(a.email) ?LIKE? LOWER($sql_search)
+					OR LOWER(b.phone) ?LIKE? LOWER($sql_search)
+
+					
+
+				ORDER by a.deleted, username, a.email, a.address, b.phone
+				LIMIT 25");
 
 			$eglible=array(); $actions=array(); $descriptions=array();
 			if ($candidates)
@@ -129,6 +138,13 @@ switch($mode)
 				    $descriptions[$row['id']] = escape_js(trans('E-mail:').' '.$row['email']);
 				    continue;
 				}
+				$search=preg_replace('/[^0-9]/', '', $search);
+
+				if (preg_match("~$search~i",$row['phone'])) {
+				    $descriptions[$row['id']] = escape_js(trans('Phone:').' '.$row['phone']);
+				    continue;
+				}
+
 				$descriptions[$row['id']] = '';
 			}
 			header('Content-type: text/plain');
@@ -451,8 +467,45 @@ switch($mode)
 			$target = '?m=customerinfo&id=' . $cid;
 		}
 	break;
-}
+case 'phone':
+		
 
+		if(isset($_GET['ajax'])) // support for AutoSuggest
+		{
+		    
+			$candidates = $DB->GetAll("SELECT customerid
+					FROM customercontacts
+					WHERE phone ?LIKE? LOWER($sql_search)
+					ORDER BY customerid
+					LIMIT 15");
+
+			if ($candidates) 
+foreach($candidates as $idx => $row){
+$actions[$row['customerid']] = '?m=customerinfo='.$row['id'];
+}				
+							
+			header('Content-type: text/plain');
+			if ($eglible) {
+				print "this.eligible = [\"".implode('","',$eglible)."\"];\n";
+				print "this.descriptions = [\"".implode('","',$descriptions)."\"];\n";
+				print "this.actions = [\"".implode('","',$actions)."\"];\n";
+			} else {
+				print "false;\n";
+			}
+			exit;
+		}
+		if(is_numeric($search)) // maybe it's customer ID
+		{
+			if($customerid = $DB->GetOne('SELECT customerid
+					FROM customercontacts
+					WHERE phone ?LIKE? LOWER($sql_search)'))
+			{
+				$target = '?m=customerinfo&id='.$customerid;
+				break;
+			}
+		}	break;
+
+}
 $SESSION->redirect(!empty($target) ? $target : '?'.$SESSION->get('backto'));
 
 ?>

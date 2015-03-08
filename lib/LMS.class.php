@@ -1149,7 +1149,7 @@ class LMS
     public function GetNetDevList($order = 'name,asc', $gponolt=0)
     {
         $manager = $this->getNetDevManager();
-        return $manager->GetNetDevList($order);
+        return $manager->GetNetDevList($order, $gponolt);
     }
 
     public function GetNetDevNames()

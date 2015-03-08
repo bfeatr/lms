@@ -81,5 +81,5 @@ $SMARTY->assign('portmacs', $portmacs);
 $SMARTY->assign('macs', $macs);
 $SMARTY->assign('vlan', $vlan);
 
-$SMARTY->display('portmacsshort.html');
+$SMARTY->display('euro/portmacsshort.html');
 ?>

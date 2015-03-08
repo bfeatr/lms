@@ -52,5 +52,5 @@ $SMARTY->assign('t', 1);
 $SMARTY->assign('details', 1);
 $SMARTY->assign('page',$page);
 $SMARTY->assign('start',$start);
-$SMARTY->display('macsearchresults.html');
+$SMARTY->display('euro/macsearchresults.html');
 ?>

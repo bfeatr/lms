@@ -127,6 +127,6 @@ if($portstatus['adminstatus']=="down") $portstatus['admindown']=1;
 
 $SMARTY->assign('portstatus', $portstatus);
 
-$SMARTY->display('portstatusshort.html');
+$SMARTY->display('euro/portstatusshort.html');
 
 ?>

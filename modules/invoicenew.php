@@ -68,7 +68,7 @@ switch($action)
 		$invoice['sdate'] = $currtime;
 		$invoice['paytime'] = ConfigHelper::getConfig('invoices.paytime');
 //		$invoice['paytype'] = ConfigHelper::getConfig('invoices.paytype');
-
+$invoice['division_author'] = 2222;
 		if(!empty($_GET['customerid']) && $LMS->CustomerExists($_GET['customerid']))
 		{
 			$customer = $LMS->GetCustomer($_GET['customerid'], true);

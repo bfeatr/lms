@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>TVK-NET - Wirtualne Biuro Obslugi Klienta</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="Keywords" content="tvk-net, internet, wasilkow, choroszcz, sokolka, bialystok, internet provider">
+<meta name="Description" content="Tvk-Net - Wirtualne Biuro Obslugi Klienta">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="SHORTCUT ICON" href="favicon.ico">
+<link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript">
+<!--
+document.forms['login'].elements['loginform[login]'].focus();
+-->
+</script>
+</head>
+<body bgcolor="#f6f4e8" text="#000000" link="#0000ff" vlink="#ff00ff" alink="#000000">
+<table align="center" border="0" width="640" cellspacing="0" cellpadding="0">
+<tr><td><img src="/baner_userpanel.jpg" alt="baner"></td></tr>
+</table>
+<table style="border: dashed 1px #deddc9;" align="center" border="0" width="640" cellspacing="0" cellpadding="2">
+
+<tr><td colspan="3" align="center" class="tytul"><br>
+Informacje o p&#322;atno&#347;ciach
+</td></tr>
+
+<tr><td colspan="3" width="60%" align="center" class="jasny9">
+Zaloguj si&#281; by obejrzec swoje p&#322;atno&#347;ci<hr>
+</td></tr>
+
+{if $customerinfo}
+<tr>
+<td width="50%" valign="top" align="left">
+<font class="tytul13">ID: {$customerinfo.id|string_format:"%04d"}</font><br>
+<font class="tytul13">PIN:</font> <font class="jasny9">dost&#281;pny na umowie</font><br>
+<font class="tytul13">IP: {$adresip}</font><br>
+<font class="tytul13">Bonusy: {if $customerinfo.balance < 0}<FONT COLOR="RED">wy&#322;&#261;czone</font>{else}w&#322;&#261;czone{/if}</font><br>
+<font class="tytul13">Ostatnie ksi&#281;gowanie: {include file="data.html"}</font>
+</td>
+
+<td width="20%" valign="middle" align="right" bgcolor="#deddc9" style="border-left: solid 1px #deddc9;">
+<font class="tytul">Saldo:</font><br>
+<font class="tytul">{if $customerinfo.balance < 0}<FONT COLOR="RED"><B>{$customerinfo.balance|money_format}</B>{else}{$customerinfo.balance|money_format}{/if}</font>
+</td>
+
+<td rowspan="2" width="30%" align="center" valign="top">
+ <table width="28%" cellpadding="3" bgcolor="#DDDDDD"  valign="top" style="border:solid; border-color: #940000; border-width: 2px;">
+  <tr><td>
+   <div style="white-space: nowrap; text-align: center;"><b>{t}Virtual Customer Service{/t}</b></div><br/>
+    {if $error}<div style="color:red;text-align: center;"><b>{$error}</b></div>{else}&nbsp;{/if}
+    <br/><br/>
+    <form id="login" method="post" action="?">
+
+     <table style="height: 100%; width: 100%;">
+      <tr>
+       <td align="right" style="white-space: nowrap;">
+        <b>{t}Customer ID:{/t}</b>
+       </td>
+       <td align="left">
+        {$customerinfo.id|string_format:'%04d'}
+        <input type="hidden" value="{$customerinfo.id|string_format:'%04d'}" name="loginform[login]" style="width: 50pt" />
+       </td>
+      </tr>
+      <tr>
+       <td align="right" style="white-space: nowrap;">
+        <b>{t}PIN:{/t}</b>
+       </td>
+       <td align="left">
+        <input type="password" name="loginform[pwd]" style="width: 50pt" />
+       </td>
+      </tr>
+      <tr>
+       <td colspan="2" align="center">
+        <br/><input type="submit" name="loginform[submit]" style="font-weight: bold;" value="{t}Login{/t}"/>
+       </td>
+      </tr>
+     </table>
+    </form>
+  </td></tr>
+ </table>
+<br><br>
+ {sum array=$assignments column="value" assign=abonament}
+ {math equation="((x * y) / 100 )" x=$selfon y=$abonament assign=dopuszczalny_dlug}
+ {if $customerinfo.balance < 0}{math equation="(x * -1)" x=$customerinfo.balance assign=dlug}{else}{math equation="(x * 1)" x=$customerinfo.balance assign=dlug}{/if}
+ <table width="100%" cellpadding="3" bgcolor="#DDDDDD"  valign="top" style="border:solid; border-color: #940000; border-width: 2px;">
+  <tr><td>
+ {if $selfon_disable|$isbanned}
+   <div style="color:red;text-align: center;"><b>W&#322;&#261;czanie wy&#322;&#261;czone<br>administracyjnie</b></div><br/>
+ {else}
+  {if $komputer.access}
+   <div style="white-space: nowrap; text-align: center;"><b>Ten komputer jest pod&#322;&#261;czony
+   {if $wlacz},<br> internet zostanie przywr&oacute;cony<br>5 minut po najbli&#380;szej<br>parzystej godzinie{/if}</b></div><br/>
+  {else}
+   <div style="color:red;text-align: center;"><b>Ten komputer jest od&#322;&#261;czony<br>
+   od internetu z powodu zaleg&#322;o&#347;ci!!!</b></div><br/>
+
+<br>
+  {/if}
+ {/if}
+  </td></tr>
+ </table>
+
+</td>
+</tr>
+<tr><td colspan="2" valign="top" align="left" bgcolor="#eeedd9" style="border-top: solid 1px #deddc9;">
+
+<center><FONT class="blad"><br>UWAGA!<br> Je&#347;li wchodz&#261;c do internetu widzisz zawsze t&#281; stron&#281;, oznacza to, &#380;e Tw&oacute;j
+komputer zosta&#322; od&#322;&#261;czony za p&#322;atno&#347;ci.</FONT></center><br><br>
+<b>1. Dlaczego od&#322;&#261;czamy?</b><br>
+Wed&#322;ug umowy od&#322;&#261;czeniu mo&#380;e podlega&#263; ka&#380;da zaleg&#322;o&#347;&#263; przekraczaj&#261;ca 60 dni kalendarzowych. Przy terminie p&#322;atno&#347;ci do 10-go daje to
+ostateczny termin do ko&#324;ca nast&#281;pnego miesi&#261;ca.<br><br>
+O zaleg&#322;o&#347;ciach powiadamiamy kilkakrotnie mailem/telefonicznie/listownie. Ich cz&#281;sto&#347;&#263; wzrasta z uplywem czasu. Gdy to nie skutkuje, dost&#281;p do internetu zostaje
+odci&#281;ty, jednak z mo&#380;liwo&#347;ci&#261; warunkowego pod&#322;&#261;czenia. Dopiero wi&#281;ksza zaleg&#322;o&#347;&#263; powoduje trwa&#322;e od&#322;&#261;czenie, a&#380; do wyja&#347;nienia, lub
+uregulowania p&#322;atno&#347;ci.<br><br>
+<b>2. Kiedy dost&#281;p zostanie przywr&oacute;cony?</b><br>
+Przy niewielkich zaleg&#322;o&#347;ciach, nieprzekraczaj&#261;cych miesi&#281;cznego abonamentu, mo&#380;na samemu przywr&oacute;ci&#263; dost&#281;p do internetu klikaj&#261;c
+na przycisk obok. Mo&#380;na r&oacute;wnie&#380; zadzwoni&#263; do biura w godzinach pracy, lub na telefony kom&oacute;rkowe. W obu przypadkach internet zostaje
+przywr&oacute;cony najp&oacute;&#378;niej po 2 godzinach (wszelkie zmiany w systemie nast&#281;puj&#261; co 2 parzyste godziny). Przy wi&#281;kszych zaleg&#322;o&#347;ciach
+do pod&#322;&#261;czenia wymagany jest dow&oacute;d op&#322;aty.<br><br>
+<b>3. Ile mam op&#322;aca&#263;?</b><br>
+Podstawowa stawka abonamentowa jest zawarta w umowie. Mog&#261; by&#263; dodane jednak inne op&#322;aty, np: za aktywacj&#281;, wyr&oacute;wnanie za niepe&#322;ny
+miesi&#261;c, lub dodatkowe komputery. Informacje o tym s&#261; dost&#281;pne telefonicznie w Biurze Obs&#322;ugi Klienta (namiary na dole strony), lub w
+Wirtualnym Biurze Obs&#322;ugi Klienta. By zalogowa&#263; si&#281; do tego drugiego trzeba wpisa&#263; PIN w ramce po prawej stronie i przej&#347;&#263; do dzia&#322;u
+Finanse w tabeli Twoje taryfy.<br><br>
+<b>4. Jak mam op&#322;aca&#263;?</b><br>
+Wed&#322;ug umowy p&#322;atno&#347;ci powinny by&#263; dokonywane do 10-go dnia ka&#380;dego miesi&#261;ca z g&oacute;ry przelewem bankowym. Przy korzystaniu z bankowo&#347;ci
+wirtualnej i/lub zlecenia sta&#322;ego, w tre&#347;ci przelewu (lub w uwagach) prosz&#281; wpisa&#263; swoje dane adresowe, je&#347;li jest inny, to adres
+pod&#322;&#261;czenia internetu, oraz najlepiej numer identyfikacyjny (widoczny wy&#380;ej). Miesi&#261;c i rok, za jaki jest p&#322;acony abonament, nie jest 
+wymagany. Numer naszego konta jest w umowie, na www.tvk-net.pl i w stopce na dole strony. Przyk&#322;ad:<br><br>
+<table width="90%" style="border:solid; border-color: #940000; border-width: 1px;" align="center" bgcolor="#deddc9" cellpadding="0" cellspacing="3">
+<tr><td>
+ID: {$customerinfo.id|string_format:"%04d"}, Jan Kowalski, ul. Lipowa 1m12 15-123 Bialystok
+</td></tr>
+</table><br>
+Mo&#380;na r&oacute;wnie&#380; op&#322;aca&#263; ksi&#261;&#380;eczk&#261; abonamentow&#261; w dowolnym punkcie przyjmuj&#261;cym pieni&#261;dze, typu banki, agencje PKO, poczta. Prowizje za
+wp&#322;aty zale&#380;&#261; od okienka. Ksi&#261;&#380;eczki mo&#380;na odebra&#263; w Biurze Obs&#322;ugi Klienta.<br>
+<br>
+<b>5. Kiedy ksi&#281;gowane s&#261; wp&#322;aty?</b><br>
+Wp&#322;aty ksi&#281;gujemy codziennie. Wyci&#261;g bankowy obejmuje przelewy od ostatniego ksi&#281;gowania, do dnia poprzedniego
+w&#322;&#261;cznie. Ksi&#281;gowanie odbywa si&#281; z dat&#261; wp&#322;ywu pieni&#281;dzy na nasze konto bankowe.<br><br>
+Przy wp&#322;atach prosz&#281; bra&#263; pod uwag&#281; op&oacute;&#378;nienia punkt&oacute;w kasowych w przekazywaniu pieni&#281;dzy na nasze konto. Si&#281;gaj&#261; one od jednego dnia 
+(banki, agencje PKO), poprzez trzy (poczta), a&#380; do siedniu (niezale&#380;ne punkty finansowe).<br><br>
+<b>6. Jak mog&#281; obejrze&#263; swoje p&#322;atno&#347;ci?</b><br>
+Wszystkie dokonane p&#322;atno&#347;ci, jak te&#380; faktury, s&#261; do wgl&#261;du w Wirtualnym Biurze Obs&#322;ugi Klienta. Prosz&#281; w ramce obok wpisa&#263; sw&oacute;j PIN, 
+zalogowa&#263; si&#281; i wybra&#263; zak&#322;adk&#281; Finanse.<br><br>
+<b>7. Co to s&#261; bonusy i kiedy s&#261; przyznawane?</b><br>
+Bonusami nazywamy przy&#347;pieszenie szybko&#347;ci internetu, je&#347;li saldo jest nieujemne. Sprawdzenie salda i ewentualna decyzja o przyznaniu
+bonus&oacute;w odbywa si&#281; automatycznie ka&#380;dego dnia co dwie godziny. Zwi&#281;kszeniu podlega zar&oacute;wno download jak i upload, jednak nie wi&#281;cej ni&#380; 20MB. Tabela bonus&oacute;w
+wygl&#261;da nast&#281;puj&#261;co:<br><br>
+<table width="50%" style="border:solid; border-color: #940000; border-width: 1px;" align="center" bgcolor="#deddc9" cellpadding="0" cellspacing="3">
+<tr><td>
+08:05 - 00:05 - +20%<br>
+00:05 - 02:05 - x2<br>
+02:05 - 04:05 - x3<br>
+04:05 - 06:05 - x4<br>
+06:05 - 08:05 - x2<br>
+    </td></tr>
+</table><br>
+<br>
+<br>
+</td></tr>
+<tr><td colspan="3" valign="top" align="center" bgcolor="#eeedd9" style="border-top: solid 1px #deddc9;">
+<b>TVK-NET<br>
+ul. , 15-751 Bia&#322;ystok<br></b>
+tel: (czynne pn.-pt. 9.00-17.00)<br>
+fax: <br>
+kom: <br>
+e-mail: biuro@tvk-net.pl, www.tvk-net.pl<br>
+Bank: <br>
+</td></tr>
+{/if}
+</table>
+</body>
+</html>
